@@ -56,12 +56,12 @@ MILESTONES
 * Backend
    - Learn basics of Firebase 
    - Set up database to hold
-         User profile information 
-         Information from each anxiety attack entry  
+     - User profile information 
+     - Information from each anxiety attack entry  
    - Create infrastructure for 
-         Entry Form  
-         Statistics Page
-         Storage of Journal enteries
+     - Entry Form  
+     - Statistics Page
+     - Storage of Journal enteries
    - Combining frontend and backend at each stage 
         
 TECH STACK
