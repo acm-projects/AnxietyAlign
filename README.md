@@ -47,11 +47,11 @@ MILESTONES
    - Use Figma or Adobe XD to create very detailed and basically how it is going to look at the end wireframes 
    - Learning basics of Flutter
    - Coding UX design from finalized wireframe 
-        1st - User Profile (Journal Can be here?) 
-        2nd - Work out Log
-        3rd - Information Page
-        4th - Statistics Page 
-        5th - Entries Log 
+     - 1st - User Profile (Journal Can be here?) 
+     - 2nd - Work out Log
+     - 3rd - Information Page
+     - 4th - Statistics Page 
+     - 5th - Entries Log 
    - Combining frontend and backend at each stage 
 * Backend
    - Learn basics of Firebase 
