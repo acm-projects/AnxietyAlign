@@ -48,10 +48,11 @@ MILESTONES
    - Learning basics of Flutter
    - Coding UX design from finalized wireframe 
      - 1st - User Profile (Journal Can be here?) 
-     - 2nd - Work out Log
+     - 2nd - Enter An Attack (Home Page)
      - 3rd - Information Page
      - 4th - Statistics Page 
      - 5th - Entries Log 
+
    - Combining frontend and backend at each stage 
 * Backend
    - Learn basics of Firebase 
