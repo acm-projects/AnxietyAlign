@@ -1,27 +1,29 @@
+import 'package:anxiety_align/services/auth.dart';
 import 'package:flutter/material.dart';
+import'package:anxiety_align/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:counter/wrapper.dart';
-import 'package:counter/models/my_user.dart';
-import 'package:counter/services/auth.dart';
+import 'package:anxiety_align/models/user.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const App());
+  runApp(MyApp());
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<MyUser?>.value(
-      initialData: null,
-      value: AuthService().usersStream,
-      child: const MaterialApp(
-        title: 'AnxietyAlign',
-        home: Wrapper()
-      )
+      return StreamProvider<MyUser?>.value(
+        initialData: null,
+        value: AuthService().usersStream,
+          child: MaterialApp(
+            title: 'AnxietyAlign',
+            debugShowCheckedModeBanner: false,
+            home: Wrapper(),
+      ),
     );
   }
 }

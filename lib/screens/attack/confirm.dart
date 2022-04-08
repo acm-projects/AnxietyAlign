@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:counter/pages/attack/attack.dart' as attack;
+import 'package:anxiety_align/screens/attack/attack.dart' as attack;
+import 'package:anxiety_align/screens/home.dart';
 
 class Confirm extends StatefulWidget {
   final attack.Section section;
@@ -49,7 +50,7 @@ class _ConfirmState extends State<Confirm> {
     );
   }
 
-  Widget icon() => Image.asset('assets/icons/book_open.png');
+  Widget icon() => Image.asset('assets/images/book_open.png');
 
   Widget title() => Text(
     widget.section == attack.Section.journal ?
@@ -74,6 +75,13 @@ class _ConfirmState extends State<Confirm> {
         widget.changePage(attack.Page.question);
         return;
       }
+      else
+        {
+          {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Home()));
+          }
+        }
     },
     style: OutlinedButton.styleFrom(
       primary: Colors.black,

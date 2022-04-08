@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:counter/widgets/audio_visualizer.dart';
-import 'package:counter/services/database.dart';
-import 'package:counter/services/storage.dart';
+import 'package:anxiety_align/widgets/audio_visualizer.dart';
+import 'package:anxiety_align/services/database.dart';
+import 'package:anxiety_align/services/storage.dart';
 
 class JournalEntry extends StatefulWidget {
   final String userID;
@@ -78,7 +78,7 @@ class _JournalEntryState extends State<JournalEntry> {
         style: TextStyle(
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Wingdings'
+        fontFamily: 'WingDings'
         )
       ),
       widget.widgetSpace,
@@ -97,7 +97,7 @@ class _JournalEntryState extends State<JournalEntry> {
         ),
         style: const TextStyle(
           fontSize: 12.0,
-          fontFamily: 'Wingdings'
+          fontFamily: 'WingDings'
         ),
         maxLines: 9,
         minLines: 9

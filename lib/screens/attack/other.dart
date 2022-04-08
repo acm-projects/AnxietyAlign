@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:counter/widgets/arrow_buttons.dart';
-import 'package:counter/pages/attack/attack.dart' as attack;
+import 'package:anxiety_align/widgets/arrow_buttons.dart';
+import 'package:anxiety_align/screens/attack/attack.dart' as attack;
 
 class Other extends StatefulWidget {
   final attack.Page page;
@@ -61,7 +61,7 @@ class _OtherState extends State<Other> {
         child: Column(
           children: <Widget>[
             widget.wideSpace,
-            Center(child: Image.asset('assets/icons/messages.png')),
+            Center(child: Image.asset('assets/images/messages.png')),
             widget.sectionSpace,
             title(),
             widget.sectionSpace,

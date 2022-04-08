@@ -1,9 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:counter/widgets/audio_visualizer.dart';
-import 'package:counter/services/database.dart';
-import 'package:counter/services/storage.dart';
+import 'package:anxiety_align/widgets/audio_visualizer.dart';
+import 'package:anxiety_align/services/database.dart';
 
 class Card extends StatefulWidget {
   final String userID;

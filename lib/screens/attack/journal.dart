@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:counter/widgets/journal_entry.dart';
+import 'package:anxiety_align/widgets/journal_entry.dart';
 
 class Journal extends StatefulWidget {
   final String userID;

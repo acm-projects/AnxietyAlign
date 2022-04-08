@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:counter/widgets/arrow_buttons.dart';
-import 'package:counter/pages/attack/attack.dart' as attack;
+import 'package:anxiety_align/widgets/arrow_buttons.dart';
+import 'package:anxiety_align/screens/attack/attack.dart' as attack;
 
 class Question extends StatefulWidget {
   final attack.Page page;

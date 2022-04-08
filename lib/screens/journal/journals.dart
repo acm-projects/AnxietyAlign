@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:counter/widgets/journal_entry.dart';
+import 'package:anxiety_align/widgets/journal_entry.dart';
+import 'package:anxiety_align/widgets/bottombar.dart';
 
 class Journals extends StatefulWidget {
   final String userID;
@@ -34,7 +35,8 @@ class _JournalsState extends State<Journals> {
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: widget.lightGreen,
     body: body(),
-    resizeToAvoidBottomInset: false
+    resizeToAvoidBottomInset: false,
+    bottomNavigationBar: BottomBar(),
   );
 
   Widget body() {
@@ -60,7 +62,7 @@ class _JournalsState extends State<Journals> {
             style: TextStyle(
               fontSize: 22.0,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Wingdings'
+              fontFamily: 'WingDings'
             )
           ),
           widget.widgetSpace,

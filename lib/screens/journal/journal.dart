@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:counter/services/auth.dart';
-import 'package:counter/services/database.dart';
-import 'package:counter/pages/journal/journals.dart';
-import 'package:counter/pages/journal/card.dart' as card;
+import 'package:anxiety_align/services/auth.dart';
+import 'package:anxiety_align/services/database.dart';
+import 'package:anxiety_align/screens/journal/journals.dart';
+import 'package:anxiety_align/screens/journal/card.dart' as card;
 
 class Journal extends StatefulWidget {
   const Journal({Key? key}) : super(key: key);

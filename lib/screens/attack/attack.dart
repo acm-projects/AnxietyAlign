@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:counter/services/auth.dart';
-import 'package:counter/services/database.dart';
-import 'package:counter/pages/attack/confirm.dart';
-import 'package:counter/pages/attack/rating.dart';
-import 'package:counter/pages/attack/question.dart';
-import 'package:counter/pages/attack/other.dart';
-import 'package:counter/pages/attack/journal.dart';
+import 'package:anxiety_align/services/auth.dart';
+import 'package:anxiety_align/services/database.dart';
+import 'package:anxiety_align/screens/attack/confirm.dart';
+import 'package:anxiety_align/screens/attack/rating.dart';
+import 'package:anxiety_align/screens/attack/question.dart';
+import 'package:anxiety_align/screens/attack/other.dart';
+import 'package:anxiety_align/screens/attack/journal.dart';
 
 class Attack extends StatefulWidget {
   const Attack({Key? key}) : super(key: key);
