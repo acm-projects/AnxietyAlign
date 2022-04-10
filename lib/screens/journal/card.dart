@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:anxiety_align/widgets/audio_visualizer.dart';
 import 'package:anxiety_align/services/database.dart';
+import 'package:counter/services/storage.dart';
 
 class Card extends StatefulWidget {
   final String userID;
@@ -39,15 +41,16 @@ class Card extends StatefulWidget {
 class _CardState extends State<Card> {
   late TextEditingController textController;
   late FlutterSoundPlayer player;
+  StreamSubscription? decibelSubscription;
   late List<int> audio;
-  //late List<double> decibels;
+  late List<double> currentDecibels, decibels;
 
   @override
   void initState() {
     textController = TextEditingController();
+    player = FlutterSoundPlayer();
     initAsync();
-    player = FlutterSoundPlayer()
-      ..openPlayer();
+    currentDecibels = <double>[];
     super.initState();
   }
   Future<void> initAsync() async {
@@ -56,11 +59,12 @@ class _CardState extends State<Card> {
         textController.text = text!;
       }
     );
-    audio = <int>[];
-    //StorageService(widget.userID).getJournalAudioFromID(widget.timestamp);
-    //audio = await StorageService(widget.userID)
-    //  .getJournalAudioFromID(widget.timestamp);
-    //decibels = <double>[];
+    StorageService storage = StorageService(widget.userID);
+    audio = await storage.getJournalAudioFromID(widget.timestamp) ?? <int>[];
+    decibels = await storage.getJournalDecibelsFromID(widget.timestamp)
+      ?? <double>[];
+    await player.openPlayer();
+    await player.setSubscriptionDuration(widget.timePerDecibel);
     setState(() { });
   }
 
@@ -151,14 +155,24 @@ class _CardState extends State<Card> {
         child: Row(
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 switch(player.playerState) {
-                  case PlayerState.isPlaying: player.pausePlayer(); break;
-                  case PlayerState.isPaused: player.resumePlayer(); break;
-                  default: player.startPlayer(
-                    fromDataBuffer: Uint8List.fromList(audio),
-                    codec: Codec.pcm16
-                  );
+                  case PlayerState.isPlaying: await player.pausePlayer(); break;
+                  case PlayerState.isPaused: await player.resumePlayer(); break;
+                  default:
+                    currentDecibels.clear();
+                    decibelSubscription = player.onProgress!.listen((event) {
+                      currentDecibels.add(decibels[currentDecibels.length]);
+                      setState(() { });
+                    });
+                    await player.startPlayer(
+                      fromDataBuffer: Uint8List.fromList(audio),
+                      codec: Codec.pcm16,
+                      whenFinished: () async {
+                        await decibelSubscription?.cancel();
+                        decibelSubscription = null;
+                      }
+                    );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -178,7 +192,7 @@ class _CardState extends State<Card> {
                 height: 35.0,
                 child: AudioVisualizer(
                   waveColor: widget.darkGreen,
-                  decibels: const <double>[],
+                  decibels: currentDecibels,
                   decibelsPerStroke: widget.decibelsPerStroke,
                   strokeWidth: widget.strokeWidth,
                   strokeGap: widget.strokeGap

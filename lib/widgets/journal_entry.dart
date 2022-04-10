@@ -78,7 +78,7 @@ class _JournalEntryState extends State<JournalEntry> {
         style: TextStyle(
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
-        fontFamily: 'WingDings'
+        fontFamily: 'Wingdings'
         )
       ),
       widget.widgetSpace,
@@ -97,7 +97,7 @@ class _JournalEntryState extends State<JournalEntry> {
         ),
         style: const TextStyle(
           fontSize: 12.0,
-          fontFamily: 'WingDings'
+          fontFamily: 'Wingdings'
         ),
         maxLines: 9,
         minLines: 9
@@ -185,6 +185,10 @@ class _JournalEntryState extends State<JournalEntry> {
       DatabaseService(userID: widget.userID).setJournalText(
         widget.timestamp.toString(),
         textController.text
+      );
+      StorageService(widget.userID).setJournalDecibels(
+        widget.timestamp.toString(),
+        decibels
       );
       StorageService(widget.userID).setJournalAudio(
         widget.timestamp.toString(),
