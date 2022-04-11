@@ -4,8 +4,7 @@ import 'package:anxiety_align/screens/graphs/graphs1.dart';
 import 'package:anxiety_align/services/auth.dart';
 import 'package:anxiety_align/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:anxiety_align/screens/settings/medsettings1.dart';
-import 'package:anxiety_align/screens/settings/medsettings2.dart';
+import 'package:anxiety_align/screens/settings/medication_list.dart';
 import 'package:anxiety_align/screens/settings/change.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 
@@ -180,16 +179,10 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             child: Text('medication settings', style: TextStyle(fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-            onPressed: () async {
-              if (await DatabaseService(userID: userID).getCount() == 0) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MedSettings1()));
-              } else {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MedSettings2()));
-              }
-            },
-          )
+            onPressed: () async => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MedicationList()))
+            ),
         ]),
       ),
       /*floatingActionButton: FloatingActionButton(

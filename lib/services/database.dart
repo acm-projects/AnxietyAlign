@@ -212,8 +212,11 @@ class DatabaseService {
 
   Future<List<String>> getMedicationName() async {
     List<String> names = <String>[];
-    QuerySnapshot snapshot =
-        await usersCollection.doc(userID).collection('medications').get();
+    QuerySnapshot snapshot = await usersCollection.doc(userID)
+    .collection('medications').orderBy(
+      'timestamp',
+      descending: true
+    ).get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       names.add(doc.get('name'));
     }
@@ -222,8 +225,11 @@ class DatabaseService {
 
   Future<List<String>> getDosage() async {
     List<String> dosages = <String>[];
-    QuerySnapshot snapshot =
-        await usersCollection.doc(userID).collection('medications').get();
+    QuerySnapshot snapshot = await usersCollection.doc(userID)
+    .collection('medications').orderBy(
+      'timestamp',
+      descending: true
+    ).get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       dosages.add(doc.get('dosage'));
     }
@@ -232,8 +238,11 @@ class DatabaseService {
 
   Future<List<int>> getFreq() async {
     List<int> times = [];
-    QuerySnapshot snapshot =
-        await usersCollection.doc(userID).collection('medications').get();
+    QuerySnapshot snapshot = await usersCollection.doc(userID)
+    .collection('medications').orderBy(
+      'timestamp',
+      descending: true
+    ).get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       times.add(doc.get('times'));
     }
@@ -242,8 +251,11 @@ class DatabaseService {
 
   Future<List<List<dynamic>>> getDays() async {
     List<List<dynamic>> days = [];
-    QuerySnapshot snapshot =
-        await usersCollection.doc(userID).collection('medications').get();
+    QuerySnapshot snapshot = await usersCollection.doc(userID)
+    .collection('medications').orderBy(
+      'timestamp',
+      descending: true
+    ).get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       days.add(doc.get('days'));
     }
@@ -251,19 +263,43 @@ class DatabaseService {
   }
 
   Future<List<String>> getOthers(String section) async {
-    List<String> values = List.filled(3, " ");
+    List<String> values = <String>["entry1", "entry2", "entry3"];
     List<String> aValues = <String>[];
     Random random = new Random();
-    QuerySnapshot snapshot =
-    await usersCollection.doc(userID).collection(section).doc('other').collection('other').get();
+    QuerySnapshot snapshot = await usersCollection
+        .doc(userID)
+        .collection(section)
+        .doc('other')
+        .collection('other')
+        .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       aValues.add(doc.id);
     }
-    for(int i = 0; i < aValues.length; i++)
-      {
+    if (aValues.length <= 3) {
+      values[0] = aValues.length > 0 ? aValues[0] : "entry1";
+      values[1] = aValues.length > 1 ? aValues[1] : "entry2";
+      values[2] = aValues.length > 2 ? aValues[2] : "entry3";
+    } else {
+      for (int i = 0; i < values.length; i++) {
         values[i] = aValues[random.nextInt(aValues.length)];
+        while (values[0] == values[1] ||
+            values[1] == values[2] ||
+            values[0] == values[2]) {
+          values[i] = aValues[random.nextInt(aValues.length)];
+        }
       }
+    }
     return values;
+  }
+
+  Future<void> removeMed(String name) async {
+    QuerySnapshot snapshot = await usersCollection.doc(userID)
+      .collection('medications').get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      if (doc.get('name') != name) continue;
+      await usersCollection.doc(userID).collection("medications").doc(doc.id)
+      .delete();
+    }
   }
 
   Future<List<String>> getJournalTimestamps() async {
@@ -414,28 +450,18 @@ class DatabaseService {
         .set({'timestamp': journalID, 'audio': audio}, SetOptions(merge: true));
   }
 
-  Future setMedications(String MedId, String name, String dosage,
-      List<String> days, int times) async {
-    await usersCollection
-        .doc(userID)
-        .collection('medications')
-        .doc(MedId)
-        .set({'name': name}, SetOptions(merge: true));
-    await usersCollection
-        .doc(userID)
-        .collection('medications')
-        .doc(MedId)
-        .set({'dosage': dosage}, SetOptions(merge: true));
-    await usersCollection
-        .doc(userID)
-        .collection('medications')
-        .doc(MedId)
-        .set({'days': days}, SetOptions(merge: true));
-    await usersCollection
-        .doc(userID)
-        .collection('medications')
-        .doc(MedId)
-        .set({'times': times}, SetOptions(merge: true));
+  Future setMedications(String id, String name, String dosage,
+  List<String> days, int frequency) async {
+    await usersCollection.doc(userID).collection('medications').doc(id).set(
+      {
+        'timestamp': id,
+        'name': name,
+        'dosage': dosage,
+        'days': days,
+        'times': frequency
+      },
+      SetOptions(merge: true)
+    );
   }
 
   List<MyUser> _userListFromSnapshot(QuerySnapshot snapshot) {
@@ -453,7 +479,7 @@ class DatabaseService {
         .collection('medications')
         .get()
         .then((value) => value.size);
-    print(count);
+    //print(count);
     return count;
   }
 

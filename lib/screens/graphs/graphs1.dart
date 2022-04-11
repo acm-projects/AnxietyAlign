@@ -8,7 +8,6 @@ import 'package:anxiety_align/screens/graphs/graphs2.dart';
 import 'package:anxiety_align/screens/home.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 
-
 class Graphs1 extends StatefulWidget {
   const Graphs1({Key? key}) : super(key: key);
 
@@ -17,12 +16,11 @@ class Graphs1 extends StatefulWidget {
 }
 
 class _Graphs1State extends State<Graphs1> {
-
   final AuthService _auth = AuthService();
   String userID = AuthService().currUserID!;
   int daysFrom = 0;
   List<int> months = List.filled(12, 0);
-  List<num> ratings = List.filled(6,0);
+  List<num> ratings = List.filled(6, 0);
   List<GraphData> data = [
     GraphData(count: 0, section: "Jan", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Feb", color: Color(0xFFD3FBCD)),
@@ -59,11 +57,10 @@ class _Graphs1State extends State<Graphs1> {
   Future<void> getRatings() async {
     ratings = (await DatabaseService(userID: userID).getRatings())!;
     setState(() => ratings = ratings);
-}
+  }
 
-  List<GraphData>setData() {
-    for(int i=0; i < data.length; i++)
-    {
+  List<GraphData> setData() {
+    for (int i = 0; i < data.length; i++) {
       data[i].count = months[i];
     }
     return data;
@@ -119,35 +116,61 @@ class _Graphs1State extends State<Graphs1> {
                           fontWeight: FontWeight.bold)),
                 ),
                 SizedBox(height: 10.0),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Container(
-                      height: 60.0,
-                      width: 60.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Color(0xFFD3FBCD),
-                          width: 3.0,
+                Row(children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Container(
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color(0xFFD3FBCD),
+                            width: 3.0,
+                          ),
+                          borderRadius: BorderRadius.circular(7.0),
                         ),
-                        borderRadius: BorderRadius.circular(7.0),
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                           daysFrom.toString(),
-                          style: TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontSize: 22,
-                              fontFamily: 'WingDing',
-                              fontWeight: FontWeight.w800),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            daysFrom.toString(),
+                            style: TextStyle(
+                                color: Color(0xFFFFFFFF),
+                                fontSize: 22,
+                                fontFamily: 'WingDing',
+                                fontWeight: FontWeight.w800),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(width: 40),
+                  Flexible(
+                      child: Text(
+                    (() {
+                      if (daysFrom < 100 && daysFrom >= 10) {
+                        return "Well Done";
+                      } else if (daysFrom >= 3 && daysFrom < 10) {
+                        return "Great Progress";
+                      } else if (daysFrom >= 100 && daysFrom < 365) {
+                        return "YOUR AMAZING!";
+                      } else if (daysFrom >= 365) {
+                        return "WHAT! A WHOLE YEAR! INCREDIBLE!";
+                      } else {
+                        return "Keep trying! You've got this!";
+                      }
+                    })(),
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                        color: Color(0xFF000000),
+                        fontSize: 22,
+                        letterSpacing: 2.0,
+                        fontFamily: 'WingDing',
+                        fontWeight: FontWeight.w800),
+                  )),
+                ]),
                 SizedBox(height: 10.0),
                 Align(
                   alignment: Alignment.centerLeft,

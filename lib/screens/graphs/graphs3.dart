@@ -4,8 +4,6 @@ import 'package:anxiety_align/services/auth.dart';
 import 'package:anxiety_align/services/database.dart';
 
 class Graphs3 extends StatefulWidget {
-  const Graphs3({Key? key}) : super(key: key);
-
   @override
   _Graphs3State createState() => _Graphs3State();
 }

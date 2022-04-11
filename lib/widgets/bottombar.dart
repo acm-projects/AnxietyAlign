@@ -16,14 +16,14 @@ class BottomBar extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
+                padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 5.0),
                 child: Row(
                   //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(width: 12),
                     IconButton(
                         icon: Icon(Icons.bar_chart,
-                            size: 68, color: Color(0xff3a8628)),
+                            size: 70, color: Color(0xff3a8628)),
                         onPressed: () {
                           Navigator.push(
                               context,
