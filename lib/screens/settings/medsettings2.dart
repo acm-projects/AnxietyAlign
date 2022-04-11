@@ -4,22 +4,20 @@ import 'package:anxiety_align/services/database.dart';
 import 'package:anxiety_align/screens/settings/settings.dart';
 import 'package:anxiety_align/screens/settings/medpage.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
+import 'package:anxiety_align/screens/home.dart';
+import 'package:anxiety_align/models/test.dart';
 
 class MedSettings2 extends StatefulWidget {
-  const MedSettings2({Key? key}) : super(key: key);
-
   @override
   _MedSettings2State createState() => _MedSettings2State();
-
 }
 
 class _MedSettings2State extends State<MedSettings2> {
-  late String userID = AuthService().currUserID!;
-  String? name;
-  String? dosage;
-  int freq = 0;
-  List<dynamic?> days = List.filled(7, " ");
-
+  String userID = AuthService().currUserID!;
+  List<String> name = <String>[];
+  List<String> dosage = <String>[];
+  List<int> freq = <int>[];
+  List<List<dynamic>> days = [];
 
   void initState() {
     getMedName();
@@ -42,13 +40,13 @@ class _MedSettings2State extends State<MedSettings2> {
   }
 
   Future<void> getFreq() async {
-    freq = (await DatabaseService(userID: userID).getFreq())!;
+    freq = (await DatabaseService(userID: userID).getFreq());
     setState(() => freq = freq);
     print(freq);
   }
 
   Future<void> getDays() async {
-    days = (await DatabaseService(userID: userID).getDays())!;
+    days = (await DatabaseService(userID: userID).getDays());
     setState(() => days = days);
     print(days);
   }
@@ -100,10 +98,8 @@ class _MedSettings2State extends State<MedSettings2> {
                         letterSpacing: 5.0,
                         color: Colors.black,
                       )),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(name ?? 'medhere',
+                  SizedBox(width: 10),
+                  Text((name.length > 0) ? name.elementAt(0) : "name",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -131,7 +127,7 @@ class _MedSettings2State extends State<MedSettings2> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(dosage ?? 'sizehere',
+                  Text((dosage.length > 0) ? dosage.elementAt(0) : 'sizehere',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -166,7 +162,7 @@ class _MedSettings2State extends State<MedSettings2> {
               SizedBox(
                 height: 10,
               ),
-              Text(days.join(" "),
+              Text((days.length > 0) ? days.elementAt(0).join(" ") : " ",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 25.0,
@@ -189,7 +185,7 @@ class _MedSettings2State extends State<MedSettings2> {
                         letterSpacing: 5.0,
                         color: Colors.black,
                       )),
-                  Text((freq.toString()),
+                  Text((freq.length > 0) ? freq.elementAt(0).toString() : " ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -208,23 +204,23 @@ class _MedSettings2State extends State<MedSettings2> {
                 children: <Widget>[
                   new Container(
                       child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side: BorderSide(color: Color(0xff3a8628))),
-                          primary: Colors.black,
-                          backgroundColor: Colors.white,
-                          minimumSize: Size(30.0, 50.0),
-                          textStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          side: BorderSide(
-                            color: Color(0xff3a8628),
-                            width: 4.0,
-                          ),
-                        ),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Color(0xff3a8628))),
+                      primary: Colors.black,
+                      backgroundColor: Colors.white,
+                      minimumSize: Size(30.0, 50.0),
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      side: BorderSide(
+                        color: Color(0xff3a8628),
+                        width: 4.0,
+                      ),
+                    ),
                     child: Text('edit'),
                     onPressed: () {},
                   ) //flexible
@@ -234,23 +230,23 @@ class _MedSettings2State extends State<MedSettings2> {
                   ),
                   new Container(
                       child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side: BorderSide(color: Color(0xff3a8628))),
-                          primary: Colors.black,
-                          backgroundColor: Colors.white,
-                          minimumSize: Size(30.0, 50.0),
-                          textStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          side: BorderSide(
-                            color: Color(0xff3a8628),
-                            width: 4.0,
-                          ),
-                        ),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Color(0xff3a8628))),
+                      primary: Colors.black,
+                      backgroundColor: Colors.white,
+                      minimumSize: Size(30.0, 50.0),
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      side: BorderSide(
+                        color: Color(0xff3a8628),
+                        width: 4.0,
+                      ),
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

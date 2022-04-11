@@ -39,6 +39,7 @@ class PieChart1 extends StatelessWidget {
               pointColorMapper: (GraphData data, _) => data.color,
               dataLabelMapper: (GraphData data, _) => data.section,
                 dataLabelSettings: DataLabelSettings(
+                    showZeroValue : false,
                     isVisible: true,
                     // Avoid labels intersection
                     labelIntersectAction: LabelIntersectAction.shift,

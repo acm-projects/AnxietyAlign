@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 class GraphData {
-  final int? count;
+  int? count;
   final String section;
   final Color? color;
 

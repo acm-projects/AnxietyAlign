@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:anxiety_align/services/auth.dart';
+import 'package:anxiety_align/services/database.dart';
 import 'package:intl/intl.dart';
 import 'package:anxiety_align/screens/graphs/bg.dart';
 import 'package:anxiety_align/screens/graphs/gdata.dart';
@@ -7,16 +8,26 @@ import 'package:anxiety_align/screens/graphs/graphs2.dart';
 import 'package:anxiety_align/screens/home.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 
-class Graphs1 extends StatelessWidget {
+
+class Graphs1 extends StatefulWidget {
+  const Graphs1({Key? key}) : super(key: key);
+
+  @override
+  _Graphs1State createState() => _Graphs1State();
+}
+
+class _Graphs1State extends State<Graphs1> {
+
   final AuthService _auth = AuthService();
-  final now = DateTime.now();
-  final DateFormat Dformatter = DateFormat.yMd();
-  final DateFormat Tformatter = DateFormat.jm();
-  final List<GraphData> data = [
+  String userID = AuthService().currUserID!;
+  int daysFrom = 0;
+  List<int> months = List.filled(12, 0);
+  List<num> ratings = List.filled(6,0);
+  List<GraphData> data = [
     GraphData(count: 0, section: "Jan", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Feb", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Mar", color: Color(0xFFD3FBCD)),
-    GraphData(count: 4, section: "Apr", color: Color(0xFFD3FBCD)),
+    GraphData(count: 0, section: "Apr", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "May", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Jun", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Jul", color: Color(0xFFD3FBCD)),
@@ -26,6 +37,37 @@ class Graphs1 extends StatelessWidget {
     GraphData(count: 0, section: "Nov", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "Dec", color: Color(0xFFD3FBCD)),
   ];
+
+  void initState() {
+    getDaysWithoutAttack();
+    getMonths();
+    setData();
+    getRatings();
+    super.initState();
+  }
+
+  Future<void> getDaysWithoutAttack() async {
+    daysFrom = (await DatabaseService(userID: userID).getDaysWithoutAttack());
+    setState(() => daysFrom = daysFrom);
+  }
+
+  Future<void> getMonths() async {
+    months = (await DatabaseService(userID: userID).getAttacksByMonth())!;
+    setState(() => months = months);
+  }
+
+  Future<void> getRatings() async {
+    ratings = (await DatabaseService(userID: userID).getRatings())!;
+    setState(() => ratings = ratings);
+}
+
+  List<GraphData>setData() {
+    for(int i=0; i < data.length; i++)
+    {
+      data[i].count = months[i];
+    }
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +137,7 @@ class Graphs1 extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "10.0",
+                           daysFrom.toString(),
                           style: TextStyle(
                               color: Color(0xFFFFFFFF),
                               fontSize: 22,
@@ -141,7 +183,7 @@ class Graphs1 extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "4.5",
+                                  ratings[0].toStringAsPrecision(2),
                                   style: TextStyle(
                                       color: Color(0xFFFFFFFF),
                                       fontSize: 22,
@@ -185,7 +227,7 @@ class Graphs1 extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "5.0",
+                                  ratings[2].toStringAsPrecision(2),
                                   style: TextStyle(
                                       color: Color(0xFFFFFFFF),
                                       fontSize: 22,
@@ -229,7 +271,7 @@ class Graphs1 extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "6.7",
+                                  ratings[4].toStringAsPrecision(2),
                                   style: TextStyle(
                                       color: Color(0xFFFFFFFF),
                                       fontSize: 22,
@@ -269,7 +311,7 @@ class Graphs1 extends StatelessWidget {
               ),*/
                 //AList(),
                 BarGraph(
-                  data: data,
+                  data: setData(),
                 ),
                 SizedBox(height: 10.0),
                 OutlinedButton(

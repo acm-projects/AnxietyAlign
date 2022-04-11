@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageService {
@@ -5,18 +6,25 @@ class StorageService {
   final Reference ref;
 
   StorageService(this.userID)
-    : ref = FirebaseStorage.instance.ref().child(userID);
+      : ref = FirebaseStorage.instance.ref().child(userID);
 
-  // TODO: :( I'm trying to read from Storage without touching the phone's files
-  // https://stackoverflow.com/questions/41992202/read-value-content-of-a-file-from-firebase-storage
-  Future<void> getJournalAudioFromID(String id) async {
-    // ref.child(userID).child(id).child('audio.txt').getDownloadURL().then((url) {
-
-    // });
-    // print(await audioFile.readAsString());
+  Future<List<int>?> getJournalAudioFromID(String id) async {
+    return ref.child(id).child('audio.txt').getData().then((data) {
+      if(data == null) return null;
+      return json.decode(utf8.decode(data)).cast<int>();
+    });
   }
 
-  UploadTask setJournalAudio(String journalID, List<int> audio)
-    => ref.child(userID).child(journalID).child('audio.txt')
-    .putString(audio.toString());
+  Future<List<double>?> getJournalDecibelsFromID(String id) async {
+    return ref.child(id).child('decibels.txt').getData().then((data) {
+      if(data == null) return null;
+      return json.decode(utf8.decode(data)).cast<double>();
+    });
+  }
+
+  UploadTask setJournalAudio(String id, List<int> audio)
+  => ref.child(id).child('audio.txt').putString(audio.toString());
+
+  UploadTask setJournalDecibels(String id, List<double> decibels)
+  => ref.child(id).child('decibels.txt').putString(decibels.toString());
 }

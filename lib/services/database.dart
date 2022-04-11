@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:anxiety_align/models/user.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:math';
 
 class DatabaseService {
   final String userID;
@@ -27,106 +29,353 @@ class DatabaseService {
     }
   }
 
-  Future<String?> getMedicationName() async {
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
+  Future<int> getDaysWithoutAttack() async {
+    List<String> timestamps = <String>[];
+    QuerySnapshot snapshot = await usersCollection
+        .doc(userID)
+        .collection('ratings')
+        .orderBy('timestamp', descending: true)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      timestamps.add(doc.id);
+    }
+    timestamps.sort((a, b) => a.compareTo(b));
+    int difference = daysBetween(
+        DateTime.parse(timestamps[timestamps.length - 2]),
+        DateTime.parse(timestamps[timestamps.length - 1]));
+    return difference;
+  }
+
+  Future<List<int>?> getGraphData(String document) async {
+    List<int> count = List.filled(5, 0);
+    QuerySnapshot snapshot =
+        await usersCollection.doc(userID).collection(document).get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      if (document == 'triggers') {
+        switch (doc.id) {
+          case 'loved_one':
+            count[0] = doc.get('count');
+            break;
+          case 'social_event':
+            count[1] = doc.get('count');
+            break;
+          case 'academic_stress':
+            count[2] = doc.get('count');
+            break;
+          case 'financial_distress':
+            count[3] = doc.get('count');
+            break;
+          case 'other':
+            count[4] = doc.get('count');
+            break;
+        }
+      } else {
+        switch (doc.id) {
+          case 'breathing_exercises':
+            count[0] = doc.get('count');
+            break;
+          case 'focus_object':
+            count[1] = doc.get('count');
+            break;
+          case 'light_exercise':
+            count[2] = doc.get('count');
+            break;
+          case 'leaving_environment':
+            count[3] = doc.get('count');
+            break;
+          case 'other':
+            count[4] = doc.get('count');
+            break;
+        }
+      }
+    }
+    return count;
+  }
+
+  Future<List<num>?> getRatings() async {
+    List<DateTime> timestamps = <DateTime>[];
+    List<num> ratings = List.filled(6, 0);
+    int cMonth = DateTime.now().month;
+    QuerySnapshot snapshot = await usersCollection
+        .doc(userID)
+        .collection('ratings')
+        .orderBy('timestamp', descending: true)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      timestamps.add(DateTime.parse(doc.id));
+    }
+    timestamps.sort((a, b) => a.compareTo(b));
+    for (int i = 0; i < timestamps.length; i++) {
+      if (cMonth == timestamps[i].month) {
+        for (QueryDocumentSnapshot doc in snapshot.docs) {
+          if (timestamps[i].toString() == doc.id) {
+            ratings[1]++;
+            ratings[0] += doc.get('rating');
+          }
+        }
+      } else if ((DateTime.now().month - 6 <= timestamps[i].month) ||
+          (timestamps[i].month <= cMonth)) {
+        for (QueryDocumentSnapshot doc in snapshot.docs) {
+          if (timestamps[i].toString() == doc.id) {
+            ratings[3]++;
+            ratings[2] += doc.get('rating');
+          }
+        }
+      } else if ((DateTime.now().year - 1 <= timestamps[i].year)) {
+        for (QueryDocumentSnapshot doc in snapshot.docs) {
+          if (timestamps[i].toString() == doc.id) {
+            ratings[5]++;
+            ratings[4] += doc.get('rating');
+          }
+        }
+      }
+    }
+    if (ratings[1] == 0) {
+      ratings[0] == 0;
+    } else {
+      ratings[0] = ratings[0] / ratings[1];
+    }
+    if (ratings[3] == 0) {
+      ratings[2] == 0;
+    } else {
+      ratings[2] = ratings[2] / ratings[3];
+    }
+    if (ratings[5] == 0) {
+      ratings[4] == 0;
+    } else {
+      ratings[4] = ratings[4] / ratings[5];
+    }
+    return ratings;
+  }
+
+  Future<List<int>?> getAttacksByMonth() async {
+    List<int> months = List.filled(12, 0);
+    List<DateTime> timestamps = <DateTime>[];
+    String arg;
+    QuerySnapshot snapshot = await usersCollection
+        .doc(userID)
+        .collection('ratings')
+        .orderBy('timestamp', descending: true)
+        .get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      timestamps.add(DateTime.parse(doc.id));
+    }
+    timestamps.sort((a, b) => a.compareTo(b));
+    for (int i = 0; i < timestamps.length; i++) {
+      switch (timestamps[i].month) {
+        case 1:
+          months[0]++;
+          break;
+        case 2:
+          months[1]++;
+          break;
+        case 3:
+          months[2]++;
+          break;
+        case 4:
+          months[3]++;
+          break;
+        case 5:
+          months[4]++;
+          break;
+        case 6:
+          months[5]++;
+          break;
+        case 7:
+          months[6]++;
+          break;
+        case 8:
+          months[7]++;
+          break;
+        case 9:
+          months[8]++;
+          break;
+        case 10:
+          months[9]++;
+          break;
+        case 11:
+          months[10]++;
+          break;
+        case 12:
+          months[11]++;
+          break;
+      }
+    }
+    return months;
+  }
+
+  Future<List<String>> getMedicationName() async {
+    List<String> names = <String>[];
     QuerySnapshot snapshot =
         await usersCollection.doc(userID).collection('medications').get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-        return doc.get('name');
+      names.add(doc.get('name'));
     }
+    return names;
   }
-  Future<String?> getDosage() async {
+
+  Future<List<String>> getDosage() async {
+    List<String> dosages = <String>[];
     QuerySnapshot snapshot =
-    await usersCollection.doc(userID).collection('medications').get();
+        await usersCollection.doc(userID).collection('medications').get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      return doc.get('dosage');
+      dosages.add(doc.get('dosage'));
     }
+    return dosages;
   }
-  Future<int?> getFreq() async {
+
+  Future<List<int>> getFreq() async {
+    List<int> times = [];
     QuerySnapshot snapshot =
-    await usersCollection.doc(userID).collection('medications').get();
+        await usersCollection.doc(userID).collection('medications').get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      return doc.get('times');
+      times.add(doc.get('times'));
     }
+    return times;
   }
-  Future<List<dynamic>?> getDays() async {
+
+  Future<List<List<dynamic>>> getDays() async {
+    List<List<dynamic>> days = [];
     QuerySnapshot snapshot =
-    await usersCollection.doc(userID).collection('medications').get();
+        await usersCollection.doc(userID).collection('medications').get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      return doc.get('days');
+      days.add(doc.get('days'));
     }
+    return days;
+  }
+
+  Future<List<String>> getOthers(String section) async {
+    List<String> values = List.filled(3, " ");
+    List<String> aValues = <String>[];
+    Random random = new Random();
+    QuerySnapshot snapshot =
+    await usersCollection.doc(userID).collection(section).doc('other').collection('other').get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      aValues.add(doc.id);
+    }
+    for(int i = 0; i < aValues.length; i++)
+      {
+        values[i] = aValues[random.nextInt(aValues.length)];
+      }
+    return values;
   }
 
   Future<List<String>> getJournalTimestamps() async {
     List<String> timestamps = <String>[];
-    CollectionReference journals = usersCollection.doc(userID)
-        .collection('journals');
-    QuerySnapshot snapshot = await journals.orderBy(
-        'timestamp',
-        descending: true
-    ).get();
-    for(QueryDocumentSnapshot doc in snapshot.docs) {
+    CollectionReference journals =
+        usersCollection.doc(userID).collection('journals');
+    QuerySnapshot snapshot =
+        await journals.orderBy('timestamp', descending: true).get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
       timestamps.add(doc.id);
     }
     return timestamps;
   }
 
   Future<String?> getJournalTextFromID(String id) async {
-    CollectionReference journals = usersCollection.doc(userID)
-        .collection('journals');
+    CollectionReference journals =
+        usersCollection.doc(userID).collection('journals');
     QuerySnapshot snapshot = await journals.get();
-    for(QueryDocumentSnapshot doc in snapshot.docs) {
-      if(id == doc.id) return doc.get('text');
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      if (id == doc.id) return doc.get('text');
     }
     return null;
   }
 
-  void logAttack(DateTime timestamp, int rating, List<int> options,
-      List<String> others) {
+  void logAttack(
+      DateTime timestamp, int rating, List<int> options, List<String> others) {
     DocumentReference userRef = usersCollection.doc(userID);
     CollectionReference collection = userRef.collection('ratings');
     DocumentReference? doc = collection.doc(timestamp.toString());
-    doc.set({
-      'timestamp': timestamp,
-      'rating': rating
-    });
+    doc.set({'timestamp': timestamp, 'rating': rating});
     collection = userRef.collection('symptoms');
-    switch(options[0]) {
-      case 0: doc = collection.doc('rapid_breathing'); break;
-      case 1: doc = collection.doc('heart_rate'); break;
-      case 2: doc = collection.doc('shaking'); break;
-      case 3: doc = collection.doc('dizziness'); break;
-      case 4: doc = collection.doc('other'); break;
-      default: doc = null;
+    switch (options[0]) {
+      case 0:
+        doc = collection.doc('rapid_breathing');
+        break;
+      case 1:
+        doc = collection.doc('heart_rate');
+        break;
+      case 2:
+        doc = collection.doc('shaking');
+        break;
+      case 3:
+        doc = collection.doc('dizziness');
+        break;
+      case 4:
+        doc = collection.doc('other');
+        break;
+      default:
+        doc = null;
     }
     incrementCount(doc, others[0]);
     collection = userRef.collection('triggers');
-    switch(options[1]) {
-      case 0: doc = collection.doc('loved_one'); break;
-      case 1: doc = collection.doc('social_event'); break;
-      case 2: doc = collection.doc('academic_stress'); break;
-      case 3: doc = collection.doc('financial_distress'); break;
-      case 4: doc = collection.doc('other'); break;
-      default: doc = null;
+    switch (options[1]) {
+      case 0:
+        doc = collection.doc('loved_one');
+        break;
+      case 1:
+        doc = collection.doc('social_event');
+        break;
+      case 2:
+        doc = collection.doc('academic_stress');
+        break;
+      case 3:
+        doc = collection.doc('financial_distress');
+        break;
+      case 4:
+        doc = collection.doc('other');
+        break;
+      default:
+        doc = null;
     }
     incrementCount(doc, others[1]);
     collection = userRef.collection('thoughts');
-    switch(options[2]) {
-      case 0: doc = collection.doc('stressed'); break;
-      case 1: doc = collection.doc('upset'); break;
-      case 2: doc = collection.doc('exhausted'); break;
-      case 3: doc = collection.doc('inadequate'); break;
-      case 4: doc = collection.doc('other'); break;
-      default: doc = null;
+    switch (options[2]) {
+      case 0:
+        doc = collection.doc('stressed');
+        break;
+      case 1:
+        doc = collection.doc('upset');
+        break;
+      case 2:
+        doc = collection.doc('exhausted');
+        break;
+      case 3:
+        doc = collection.doc('inadequate');
+        break;
+      case 4:
+        doc = collection.doc('other');
+        break;
+      default:
+        doc = null;
     }
     incrementCount(doc, others[2]);
     collection = userRef.collection('solution');
-    switch(options[3]) {
-      case 0: doc = collection.doc('breathing_exercises'); break;
-      case 1: doc = collection.doc('focus_object'); break;
-      case 2: doc = collection.doc('light_exercise'); break;
-      case 3: doc = collection.doc('leaving_environment'); break;
-      case 4: doc = collection.doc('other'); break;
-      default: doc = null;
+    switch (options[3]) {
+      case 0:
+        doc = collection.doc('breathing_exercises');
+        break;
+      case 1:
+        doc = collection.doc('focus_object');
+        break;
+      case 2:
+        doc = collection.doc('light_exercise');
+        break;
+      case 3:
+        doc = collection.doc('leaving_environment');
+        break;
+      case 4:
+        doc = collection.doc('other');
+        break;
+      default:
+        doc = null;
     }
     incrementCount(doc, others[3]);
   }
@@ -154,7 +403,7 @@ class DatabaseService {
         .doc(userID)
         .collection('journals')
         .doc(journalID)
-        .set({'text': text}, SetOptions(merge: true));
+        .set({'timestamp': journalID, 'text': text}, SetOptions(merge: true));
   }
 
   Future setJournalAudio(String journalID, List<int> audio) async {
@@ -162,7 +411,7 @@ class DatabaseService {
         .doc(userID)
         .collection('journals')
         .doc(journalID)
-        .set({'audio': audio}, SetOptions(merge: true));
+        .set({'timestamp': journalID, 'audio': audio}, SetOptions(merge: true));
   }
 
   Future setMedications(String MedId, String name, String dosage,
@@ -198,12 +447,13 @@ class DatabaseService {
     }).toList();
   }
 
-  Future<int> getCount() async {
-    int count = await usersCollection
+  Future<int?> getCount() async {
+    int? count = await usersCollection
         .doc(userID)
         .collection('medications')
         .get()
         .then((value) => value.size);
+    print(count);
     return count;
   }
 

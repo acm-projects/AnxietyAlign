@@ -150,8 +150,6 @@ class _MedPageState extends State<MedPage> {
                                   validator: (String? val) {
                                     if (val != null && val.isEmpty) {
                                       return "dosage cant be empty";
-                                    } else if (val != null && val.length > 1) {
-                                      return "dosage cant be more than one number";
                                     }
                                   })),
                         ), //flexible
@@ -430,7 +428,7 @@ class _MedPageState extends State<MedPage> {
                         style: OutlinedButton.styleFrom(
                           primary: Colors.black,
                           backgroundColor:
-                              isSelected[0] ? Color(0xFFD3FBCD): Colors.white ,
+                              isSelected[0] ? Color(0xFFD3FBCD) : Colors.white,
                           minimumSize: Size(30.0, 55.0),
                           textStyle: TextStyle(
                             color: Colors.black,
@@ -462,7 +460,7 @@ class _MedPageState extends State<MedPage> {
                         style: OutlinedButton.styleFrom(
                           primary: Colors.black,
                           backgroundColor:
-                              isSelected[1] ? Color(0xFFD3FBCD): Colors.white,
+                              isSelected[1] ? Color(0xFFD3FBCD) : Colors.white,
                           minimumSize: Size(30.0, 55.0),
                           textStyle: TextStyle(
                             color: Colors.black,
@@ -494,7 +492,7 @@ class _MedPageState extends State<MedPage> {
                         style: OutlinedButton.styleFrom(
                           primary: Colors.black,
                           backgroundColor:
-                              isSelected[2] ? Color(0xFFD3FBCD): Colors.white,
+                              isSelected[2] ? Color(0xFFD3FBCD) : Colors.white,
                           minimumSize: Size(30.0, 55.0),
                           textStyle: TextStyle(
                             color: Colors.black,
@@ -526,7 +524,7 @@ class _MedPageState extends State<MedPage> {
                         style: OutlinedButton.styleFrom(
                           primary: Colors.black,
                           backgroundColor:
-                              isSelected[3] ? Color(0xFFD3FBCD): Colors.white,
+                              isSelected[3] ? Color(0xFFD3FBCD) : Colors.white,
                           minimumSize: Size(30.0, 55.0),
                           textStyle: TextStyle(
                             color: Colors.black,

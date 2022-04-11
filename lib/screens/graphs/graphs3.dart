@@ -1,8 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:anxiety_align/screens/graphs/graphs1.dart';
 import 'package:anxiety_align/screens/graphs/graphs2.dart';
+import 'package:anxiety_align/services/auth.dart';
+import 'package:anxiety_align/services/database.dart';
 
-class Graphs3 extends StatelessWidget {
+class Graphs3 extends StatefulWidget {
+  const Graphs3({Key? key}) : super(key: key);
+
+  @override
+  _Graphs3State createState() => _Graphs3State();
+}
+
+class _Graphs3State extends State<Graphs3> {
+
+  final AuthService _auth = AuthService();
+  String userID = AuthService().currUserID!;
+  List<String> reactions = List.filled(3, " ");
+  List<String> sources = List.filled(3, " ");
+  List<String> thoughts = List.filled(3, " ");
+  List<String> calming = List.filled(3, " ");
+
+  void initState() {
+    getReactions();
+    getThoughts();
+    getSources();
+    getCalmers();
+    super.initState();
+  }
+
+  Future<void> getReactions() async {
+    reactions = (await DatabaseService(userID: userID).getOthers('symptoms'));
+    setState(() => reactions = reactions);
+    print(reactions);
+  }
+
+  Future<void> getSources() async {
+    sources = (await DatabaseService(userID: userID).getOthers('triggers'));
+    setState(() => sources = sources);
+    print(sources);
+  }
+
+  Future<void> getThoughts() async {
+    thoughts = (await DatabaseService(userID: userID).getOthers('thoughts'));
+    setState(() => thoughts = thoughts);
+    print(thoughts);
+  }
+
+  Future<void> getCalmers() async {
+    calming = (await DatabaseService(userID: userID).getOthers('solution'));
+    setState(() => calming = calming);
+    print(calming);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +104,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 1",
+                          (reactions[0] != " ") ? reactions[0] : "entry 1",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -86,7 +135,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 2",
+                          (reactions[1] != " ") ? reactions[1] : "entry 2",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -117,7 +166,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 3",
+                          (reactions[2] != " ") ? reactions[2] : "entry 3",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -160,7 +209,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 1",
+                          (sources[0] != " ") ? sources[0] : "entry 1",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -191,7 +240,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 2",
+                          (sources[1] != " ") ? sources[1] : "entry 2",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -222,7 +271,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 3",
+                          (sources[2] != " ") ? sources[2] : "entry 3",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -265,7 +314,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 1",
+                          (thoughts[0] != " ") ? thoughts[0] : "entry 1",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -296,7 +345,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 2",
+                          (thoughts[1] != " ") ? thoughts[1] : "entry 2",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -327,7 +376,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 3",
+                          (thoughts[2] != " ") ? thoughts[2] : "entry 3",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -370,7 +419,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 1",
+                          (calming[0] != " ") ? calming[0] : "entry 1",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -401,7 +450,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 2",
+                          (calming[1] != " ") ? calming[1] : "entry 2",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
@@ -432,7 +481,7 @@ class Graphs3 extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "entry 3",
+                          (calming[2] != " ") ? calming[2] : "entry 3",
                           style: TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 18,
