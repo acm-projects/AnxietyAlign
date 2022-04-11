@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:anxiety_align/widgets/arrow_buttons.dart';
 import 'package:anxiety_align/screens/attack/attack.dart' as attack;
+import 'package:anxiety_align/widgets/arrow_buttons.dart';
 
 class Other extends StatefulWidget {
   final attack.Page page;
@@ -40,10 +40,12 @@ class Other extends StatefulWidget {
 
 class _OtherState extends State<Other> {
   late TextEditingController textController;
+  late GlobalKey<FormState> formKey;
 
   @override
   void initState() {
     textController = TextEditingController();
+    formKey = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -81,7 +83,8 @@ class _OtherState extends State<Other> {
         changeOther: widget.changeOther,
         rating: widget.rating,
         other: textController.text,
-        darkGreen: widget.darkGreen
+        darkGreen: widget.darkGreen,
+        onNext: () => formKey.currentState!.validate()
       )
     ]
   );
@@ -132,23 +135,37 @@ class _OtherState extends State<Other> {
         )
       ),
       widget.widgetSpace,
-      TextFormField(
-        controller: textController,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.darkGreen,
-              width: 2.5
+      Form(
+        key: formKey,
+        child: TextFormField(
+          controller: textController,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: widget.darkGreen,
+                width: 2.5
+              ),
+              borderRadius: BorderRadius.circular(7.5)
             ),
-            borderRadius: BorderRadius.circular(7.5)
+            filled: true,
+            fillColor: Colors.white
           ),
-          filled: true,
-          fillColor: Colors.white
-        ),
-        style: const TextStyle(fontSize: 12.0),
-        maxLines: 5,
-        minLines: 5,
-        onChanged: (text) => setState(() { })
+          style: const TextStyle(fontSize: 12.0),
+          maxLines: 5,
+          minLines: 5,
+          onChanged: (text) => setState(() { }),
+          validator: ((text) {
+            if(text == null) return 'Text cannot be empty';
+            int words = 0;
+            for(int i = 0; i < text.length; i++) {
+              if(text[i].trim() == '') continue;
+              if(i == 0 || text[i - 1].trim() == '') words++;
+            }
+            if(words == 0) return 'Text cannot be empty';
+            if(words > 5) return 'Text cannot be more than five words';
+            return null;
+          })
+        )
       )
     ]
   );

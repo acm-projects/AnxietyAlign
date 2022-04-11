@@ -10,6 +10,7 @@ class ArrowButtons extends StatefulWidget {
   final Function changeOther;
   final int rating;
   final String other;
+  final Function? onNext;
   final Color darkGreen;
   const ArrowButtons({
     Key? key,
@@ -21,7 +22,8 @@ class ArrowButtons extends StatefulWidget {
     required this.changeOther,
     required this.rating,
     this.other = '',
-    this.darkGreen = const Color(0xFF3A8628)
+    this.darkGreen = const Color(0xFF3A8628),
+    this.onNext
   }) : super(key: key);
   @override
   State<ArrowButtons> createState() => _ArrowButtonsState();
@@ -70,6 +72,7 @@ class _ArrowButtonsState extends State<ArrowButtons> {
           widget.changeSection(attack.Section.values[widget.section.index - 1]);
           return;
         }
+        if(widget.onNext != null) widget.onNext!();
         if(widget.page == attack.Page.other) {
           int words = wordcount(widget.other);
           if(words == 0 || words > 5) return;
