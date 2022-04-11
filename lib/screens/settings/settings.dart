@@ -21,10 +21,18 @@ class _SettingsState extends State<Settings> {
   late User currUser = AuthService().currUser!;
   late String userID = AuthService().currUserID!;
   String? username;
+  List<String> name = <String>[];
+  List<String> dosage = <String>[];
+  List<int> freq = <int>[];
+  List<List<dynamic>> days = [];
   bool _isEnable = false;
 
   void initState() {
     getUser();
+    getMedName();
+    getDosage();
+    getFreq();
+    getDays();
     super.initState();
   }
 
@@ -35,6 +43,30 @@ class _SettingsState extends State<Settings> {
 
   Future<void> setUser(String user) async {
     await DatabaseService(userID: userID).setUsername(user);
+  }
+
+  Future<void> getMedName() async {
+    name = (await DatabaseService(userID: userID).getMedicationName());
+    setState(() => name = name);
+    print(name);
+  }
+
+  Future<void> getDosage() async {
+    dosage = (await DatabaseService(userID: userID).getDosage());
+    setState(() => dosage = dosage);
+    //print(dosage);
+  }
+
+  Future<void> getFreq() async {
+    freq = (await DatabaseService(userID: userID).getFreq());
+    setState(() => freq = freq);
+    //print(freq);
+  }
+
+  Future<void> getDays() async {
+    days = (await DatabaseService(userID: userID).getDays());
+    setState(() => days = days);
+    //print(days);
   }
 
   @override
@@ -186,7 +218,7 @@ class _SettingsState extends State<Settings> {
                     MaterialPageRoute(builder: (context) => MedSettings1()));
               } else {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MedSettings2()));
+                    MaterialPageRoute(builder: (context) => MedSettings2(name: name[0], dosage: dosage[0], freq: freq[0], days: days[0],)));
               }
             },
           )

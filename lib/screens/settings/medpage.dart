@@ -51,24 +51,10 @@ class _MedPageState extends State<MedPage> {
                     height: 40,
                   ),
                   Align(
-                      alignment: Alignment(-.7, 1),
-                      child: OutlinedButton.icon(
-                        label: Text('back'),
-                        icon: Icon(Icons.arrow_back_sharp, size: 28),
-                        style: OutlinedButton.styleFrom(
-                          primary: Colors.black,
-                          backgroundColor: Colors.white,
-                          minimumSize: Size(110.0, 50.0),
-                          textStyle: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
-                          ),
-                          side: BorderSide(
-                            color: Color(0xff3a8628),
-                            width: 4.0,
-                          ),
-                        ),
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back_sharp, size: 40),
+                        color: Colors.black,
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -150,6 +136,11 @@ class _MedPageState extends State<MedPage> {
                                   validator: (String? val) {
                                     if (val != null && val.isEmpty) {
                                       return "dosage cant be empty";
+                                    } else if (val != null && val.length > 4) {
+                                      return "dosage cant be more than 1000mg";
+                                    } else if (val != null &&
+                                        int.parse(val) > 1000) {
+                                      return "dosage cant be more than 1000mg";
                                     }
                                   })),
                         ), //flexible

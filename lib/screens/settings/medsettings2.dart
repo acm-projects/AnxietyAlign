@@ -7,6 +7,17 @@ import 'package:anxiety_align/widgets/bottombar.dart';
 import 'package:anxiety_align/screens/home.dart';
 
 class MedSettings2 extends StatefulWidget {
+  String? name;
+  String? dosage;
+  int freq;
+  List<dynamic> days;
+
+  MedSettings2(
+      {required this.name,
+      required this.dosage,
+      required this.freq,
+      required this.days});
+
   @override
   _MedSettings2State createState() => _MedSettings2State();
 }
@@ -29,25 +40,25 @@ class _MedSettings2State extends State<MedSettings2> {
   Future<void> getMedName() async {
     name = (await DatabaseService(userID: userID).getMedicationName());
     setState(() => name = name);
-    print(name);
+    //print(name);
   }
 
   Future<void> getDosage() async {
     dosage = (await DatabaseService(userID: userID).getDosage());
     setState(() => dosage = dosage);
-    print(dosage);
+    //print(dosage);
   }
 
   Future<void> getFreq() async {
     freq = (await DatabaseService(userID: userID).getFreq());
     setState(() => freq = freq);
-    print(freq);
+    //print(freq);
   }
 
   Future<void> getDays() async {
     days = (await DatabaseService(userID: userID).getDays());
     setState(() => days = days);
-    print(days);
+    //print(days);
   }
 
   @override
@@ -98,7 +109,7 @@ class _MedSettings2State extends State<MedSettings2> {
                         color: Colors.black,
                       )),
                   SizedBox(width: 10),
-                  Text((name.length > 0) ? name.elementAt(0) : "name",
+                  Text((widget.name!.length > 0) ? widget.name! : "name",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -126,7 +137,8 @@ class _MedSettings2State extends State<MedSettings2> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text((dosage.length > 0) ? dosage.elementAt(0) : 'sizehere',
+                  Text(
+                      (widget.dosage!.length > 0) ? widget.dosage! : 'sizehere',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -161,7 +173,7 @@ class _MedSettings2State extends State<MedSettings2> {
               SizedBox(
                 height: 10,
               ),
-              Text((days.length > 0) ? days.elementAt(0).join(" ") : " ",
+              Text((widget.days.length > 0) ? widget.days.join(" ") : " ",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 25.0,
@@ -184,7 +196,7 @@ class _MedSettings2State extends State<MedSettings2> {
                         letterSpacing: 5.0,
                         color: Colors.black,
                       )),
-                  Text((freq.length > 0) ? freq.elementAt(0).toString() : " ",
+                  Text((widget.freq > 0) ? widget.freq.toString() : " ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
@@ -201,7 +213,7 @@ class _MedSettings2State extends State<MedSettings2> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  new Container(
+                  Container(
                       child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -220,8 +232,21 @@ class _MedSettings2State extends State<MedSettings2> {
                         width: 4.0,
                       ),
                     ),
-                    child: Text('edit'),
-                    onPressed: () {},
+                    child: Text('remove'),
+                    onPressed: () async {
+                      for (int i = 0; i < name.length; i++) {
+                        if(name[i] == widget.name)
+                          {
+                            name.removeAt(i);
+                            dosage.removeAt(i);
+                            days.removeAt(i);
+                            freq.removeAt(i);
+                            await DatabaseService(userID: userID).removeMed(widget.name);
+                          }
+                      }
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    },
                   ) //flexible
                       ),
                   SizedBox(
@@ -257,10 +282,21 @@ class _MedSettings2State extends State<MedSettings2> {
                       ],
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MedSettings2()));
+                      for (int i = 0; i < name.length; i++) {
+                        if (name[name.length - 1] == widget.name) {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+                        } else if (name[i] == widget.name) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MedSettings2(
+                                      name: name[i + 1],
+                                      dosage: dosage[i + 1],
+                                      freq: freq[i + 1],
+                                      days: days[i + 1])));
+                        }
+                      }
                     },
                   ) //flexible
                       ), //container

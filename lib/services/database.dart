@@ -251,19 +251,51 @@ class DatabaseService {
   }
 
   Future<List<String>> getOthers(String section) async {
-    List<String> values = List.filled(3, " ");
+    List<String> values = <String>["entry1", "entry2", "entry3"];
     List<String> aValues = <String>[];
     Random random = new Random();
-    QuerySnapshot snapshot =
-    await usersCollection.doc(userID).collection(section).doc('other').collection('other').get();
+    QuerySnapshot snapshot = await usersCollection
+        .doc(userID)
+        .collection(section)
+        .doc('other')
+        .collection('other')
+        .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
       aValues.add(doc.id);
     }
-    for(int i = 0; i < aValues.length; i++)
-      {
+    if (aValues.length <= 3) {
+      values[0] = aValues.length > 0 ? aValues[0] : "entry1";
+      values[1] = aValues.length > 1 ? aValues[1] : "entry2";
+      values[2] = aValues.length > 2 ? aValues[2] : "entry3";
+    } else {
+      for (int i = 0; i < values.length; i++) {
         values[i] = aValues[random.nextInt(aValues.length)];
+        while (values[0] == values[1] ||
+            values[1] == values[2] ||
+            values[0] == values[2]) {
+          values[i] = aValues[random.nextInt(aValues.length)];
+        }
       }
+    }
     return values;
+  }
+
+  Future<void> removeMed(String? name) async {
+    String id = " ";
+    QuerySnapshot snapshot =
+        await usersCollection.doc(userID).collection('medications').get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      if (doc.get('name') == name) {
+        id = doc.id;
+      } else {
+        continue;
+      }
+      return usersCollection
+          .doc(userID)
+          .collection("medications")
+          .doc(id)
+          .delete();
+    }
   }
 
   Future<List<String>> getJournalTimestamps() async {
@@ -453,7 +485,7 @@ class DatabaseService {
         .collection('medications')
         .get()
         .then((value) => value.size);
-    print(count);
+    //print(count);
     return count;
   }
 
