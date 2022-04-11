@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:anxiety_align/screens/journal/card.dart' as card;
+import 'package:anxiety_align/screens/journal/journals.dart';
 import 'package:anxiety_align/services/auth.dart';
 import 'package:anxiety_align/services/database.dart';
-import 'package:anxiety_align/screens/journal/journals.dart';
-import 'package:anxiety_align/screens/journal/card.dart' as card;
 
 class Journal extends StatefulWidget {
   const Journal({Key? key}) : super(key: key);
@@ -19,11 +19,12 @@ class _JournalState extends State<Journal> {
   void initState() {
     userID = AuthService().currUserID!;
     buildHelper = Journals(
-        userID: userID,
-        timestamp: DateTime.now(),
-        timestamps: const <String>[],
-        updateTimestamps: updateTimestamps,
-        buildCard: buildCard);
+      userID: userID,
+      timestamp: DateTime.now(),
+      timestamps: const <String>[],
+      updateTimestamps: updateTimestamps,
+      buildCard: buildCard
+    );
     initAsync();
     super.initState();
   }
@@ -36,20 +37,26 @@ class _JournalState extends State<Journal> {
   @override
   Widget build(BuildContext context) => buildHelper;
 
-  void buildJournals() => setState(() => buildHelper = Journals(
+  void buildJournals() =>
+    setState(() => buildHelper = Journals(
       userID: userID,
       timestamp: DateTime.now(),
       timestamps: timestamps,
       updateTimestamps: updateTimestamps,
-      buildCard: buildCard));
+      buildCard: buildCard
+    )
+  );
 
-  Future<void> updateTimestamps() =>
-      DatabaseService(userID: userID).getJournalTimestamps().then((timestamps) {
-        this.timestamps = timestamps;
-        buildJournals();
-        setState(() {});
-      });
+  void updateTimestamps(String timestamp) {
+    timestamps.insert(0, timestamp);
+    buildJournals();
+  }
 
-  void buildCard(String timestamp) => setState(() => buildHelper = card.Card(
-      userID: userID, timestamp: timestamp, buildJournals: buildJournals));
+  void buildCard(String timestamp) =>
+    setState(() => buildHelper = card.Card(
+      userID: userID,
+      timestamp: timestamp,
+      buildJournals: buildJournals
+    )
+  );
 }

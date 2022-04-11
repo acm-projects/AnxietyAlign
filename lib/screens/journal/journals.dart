@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:anxiety_align/widgets/journal_entry.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
+import 'package:anxiety_align/widgets/journal_entry.dart';
 
 class Journals extends StatefulWidget {
   final String userID;
@@ -36,7 +36,7 @@ class _JournalsState extends State<Journals> {
     backgroundColor: widget.lightGreen,
     body: body(),
     resizeToAvoidBottomInset: false,
-    bottomNavigationBar: BottomBar(),
+    bottomNavigationBar: const BottomBar()
   );
 
   Widget body() {
@@ -50,7 +50,7 @@ class _JournalsState extends State<Journals> {
           JournalEntry(
             userID: widget.userID,
             timestamp: widget.timestamp,
-            onSave: () => widget.updateTimestamps(),
+            onSave: () => widget.updateTimestamps(widget.timestamp.toString()),
             lightGreen: widget.lightGreen,
             darkGreen: widget.darkGreen,
             sectionSpace: widget.sectionSpace,

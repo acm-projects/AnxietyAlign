@@ -158,8 +158,6 @@ class _JournalEntryState extends State<JournalEntry> {
         decibels = <double>[];
         audio = <int>[];
         FocusScope.of(context).requestFocus(FocusNode());
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Home()));
       },
       style: ElevatedButton.styleFrom(
           primary: Colors.white,
