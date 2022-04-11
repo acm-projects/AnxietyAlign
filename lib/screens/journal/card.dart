@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:anxiety_align/widgets/audio_visualizer.dart';
 import 'package:anxiety_align/services/database.dart';
+<<<<<<< HEAD
 import 'package:anxiety_align/services/storage.dart';
+=======
+import 'package:counter/services/storage.dart';
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 
 class Card extends StatefulWidget {
   final String userID;
@@ -62,7 +66,11 @@ class _CardState extends State<Card> {
     StorageService storage = StorageService(widget.userID);
     audio = await storage.getJournalAudioFromID(widget.timestamp) ?? <int>[];
     decibels = await storage.getJournalDecibelsFromID(widget.timestamp)
+<<<<<<< HEAD
         ?? <double>[];
+=======
+      ?? <double>[];
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
     await player.openPlayer();
     await player.setSubscriptionDuration(widget.timePerDecibel);
     setState(() { });
@@ -135,6 +143,7 @@ class _CardState extends State<Card> {
   );
 
   Widget audioDisplay() => Column(
+<<<<<<< HEAD
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
@@ -200,6 +209,71 @@ class _CardState extends State<Card> {
                       )
                   )
                 ]
+=======
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      const Text(
+        'audio:',
+        style: TextStyle(
+          fontSize: 22.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Wingdings'
+        )
+      ),
+      widget.widgetSpace,
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(7.5)
+        ),
+        height: 40.0,
+        child: Row(
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () async {
+                switch(player.playerState) {
+                  case PlayerState.isPlaying: await player.pausePlayer(); break;
+                  case PlayerState.isPaused: await player.resumePlayer(); break;
+                  default:
+                    currentDecibels.clear();
+                    decibelSubscription = player.onProgress!.listen((event) {
+                      currentDecibels.add(decibels[currentDecibels.length]);
+                      setState(() { });
+                    });
+                    await player.startPlayer(
+                      fromDataBuffer: Uint8List.fromList(audio),
+                      codec: Codec.pcm16,
+                      whenFinished: () async {
+                        await decibelSubscription?.cancel();
+                        decibelSubscription = null;
+                      }
+                    );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                elevation: 0.0,
+                padding: EdgeInsets.zero,
+                minimumSize: const Size(0.0, 0.0)
+              ),
+              child: Icon(
+                Icons.play_arrow_rounded,
+                size: 40.0,
+                color: widget.darkGreen
+              )
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 35.0,
+                child: AudioVisualizer(
+                  waveColor: widget.darkGreen,
+                  decibels: currentDecibels,
+                  decibelsPerStroke: widget.decibelsPerStroke,
+                  strokeWidth: widget.strokeWidth,
+                  strokeGap: widget.strokeGap
+                )
+              )
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
             )
         )
       ]

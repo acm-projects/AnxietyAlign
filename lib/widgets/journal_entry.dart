@@ -68,6 +68,7 @@ class _JournalEntryState extends State<JournalEntry> {
     ]);
   }
 
+<<<<<<< HEAD
   Widget textEntry() =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         const Text('enter text here:',
@@ -88,6 +89,42 @@ class _JournalEntryState extends State<JournalEntry> {
             maxLines: 9,
             minLines: 9)
       ]);
+=======
+  Widget textEntry() => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      const Text(
+        'enter text here:',
+        style: TextStyle(
+        fontSize: 22.0,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Wingdings'
+        )
+      ),
+      widget.widgetSpace,
+      TextFormField(
+        controller: textController,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.darkGreen,
+              width: 2.5
+            ),
+            borderRadius: BorderRadius.circular(7.5)
+          ),
+          filled: true,
+          fillColor: Colors.white
+        ),
+        style: const TextStyle(
+          fontSize: 12.0,
+          fontFamily: 'Wingdings'
+        ),
+        maxLines: 9,
+        minLines: 9
+      )
+    ]
+  );
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 
   Widget audioEntry() =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
@@ -145,6 +182,7 @@ class _JournalEntryState extends State<JournalEntry> {
       ]);
 
   Widget saveButton() => ElevatedButton(
+<<<<<<< HEAD
       onPressed: () {
         DatabaseService(userID: widget.userID)
             .setJournalText(widget.timestamp.toString(), textController.text);
@@ -170,4 +208,46 @@ class _JournalEntryState extends State<JournalEntry> {
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
               fontFamily: 'Wingdings')));
+=======
+    onPressed: () {
+      DatabaseService(userID: widget.userID).setJournalText(
+        widget.timestamp.toString(),
+        textController.text
+      );
+      StorageService(widget.userID).setJournalDecibels(
+        widget.timestamp.toString(),
+        decibels
+      );
+      StorageService(widget.userID).setJournalAudio(
+        widget.timestamp.toString(),
+        audio
+      );
+      if(widget.onSave != null) widget.onSave!();
+      textController.text = '';
+      decibels = <double>[];
+      audio = <int>[];
+      FocusScope.of(context).requestFocus(FocusNode());
+    },
+    style: ElevatedButton.styleFrom(
+      primary: Colors.white,
+      elevation: 0.0,
+      side: BorderSide(
+        color: widget.darkGreen,
+        width: 3.0
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(7.5)
+      )
+    ),
+    child: const Text(
+      'save',
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Wingdings'
+      )
+    )
+  );
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 }
