@@ -246,7 +246,7 @@ class _MedicationState extends State<Medication> {
     height: 50.0,
     child: TextButton(
       onPressed: widget.removeMedication == null ? () { }
-        : () => widget.removeMedication!(widget.name),
+        : () => widget.removeMedication!(),
       style: TextButton.styleFrom(
         primary: Colors.black,
         backgroundColor: Colors.red,
@@ -274,6 +274,8 @@ class _MedicationState extends State<Medication> {
         side: BorderSide(color: widget.darkGreen)
       )
     ),
-    child: Center(child: subtitle('+ add another'))
+    child: Center(
+      child: subtitle(widget.noMedications ? '+ add one' : '+ add another')
+    )
   );
 }

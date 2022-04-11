@@ -27,18 +27,6 @@ class _MedicationListState extends State<MedicationList> {
   }
 
   Future<void> initAsync() async {
-    await updateMedications();
-    index = names.isEmpty ? -1 : 0;
-    buildMedication();
-  }
-
-  void slashDays() {
-    for(List<String> week in days) {
-      week.removeWhere((day) => day == ' ');
-    }
-  }
-
-  Future<void> updateMedications() async {
     database = DatabaseService(userID: userID);
     names = await database.getMedicationName();
     dosages = (await database.getDosage()).map((dosage) => int.parse(dosage))
@@ -47,6 +35,14 @@ class _MedicationListState extends State<MedicationList> {
       .toList();
     slashDays();
     frequencies = await database.getFreq();
+    index = names.isEmpty ? -1 : 0;
+    buildMedication();
+  }
+
+  void slashDays() {
+    for(List<String> week in days) {
+      week.removeWhere((day) => day == ' ');
+    }
   }
 
   @override
@@ -78,9 +74,12 @@ class _MedicationListState extends State<MedicationList> {
     buildMedication();
   }
 
-  Future<void> removeMedication(String name) async {
-    await database.removeMed(name);
-    await updateMedications();
+  Future<void> removeMedication() async {
+    await database.removeMed(names[index]);
+    names.removeAt(index);
+    dosages.removeAt(index);
+    days.removeAt(index);
+    frequencies.removeAt(index);
     if(index != 0) index--;
     if(names.isEmpty) index = -1;
     buildMedication();
