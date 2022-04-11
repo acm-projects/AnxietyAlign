@@ -8,7 +8,6 @@ import 'package:anxiety_align/screens/settings/medsettings1.dart';
 import 'package:anxiety_align/screens/settings/medsettings2.dart';
 import 'package:anxiety_align/screens/settings/change.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
-import 'package:anxiety_align/models/test.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -23,7 +22,6 @@ class _SettingsState extends State<Settings> {
   late String userID = AuthService().currUserID!;
   String? username;
   bool _isEnable = false;
-  Test? t = new Test(index: 0);
 
   void initState() {
     getUser();

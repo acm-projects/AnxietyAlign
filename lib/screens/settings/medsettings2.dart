@@ -5,7 +5,6 @@ import 'package:anxiety_align/screens/settings/settings.dart';
 import 'package:anxiety_align/screens/settings/medpage.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 import 'package:anxiety_align/screens/home.dart';
-import 'package:anxiety_align/models/test.dart';
 
 class MedSettings2 extends StatefulWidget {
   @override
