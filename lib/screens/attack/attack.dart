@@ -36,10 +36,7 @@ class _AttackState extends State<Attack> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-    child: buildHelper(),
-    onTap: () => FocusScope.of(context).requestFocus(FocusNode())
-  );
+  Widget build(BuildContext context) => buildHelper();
 
   void changePage(Page page) => setState(() => this.page = page);
   void changeSection(Section section) {

@@ -32,6 +32,12 @@ class _MedicationListState extends State<MedicationList> {
     buildMedication();
   }
 
+  void slashDays() {
+    for(List<String> week in days) {
+      week.removeWhere((day) => day == ' ');
+    }
+  }
+
   Future<void> updateMedications() async {
     database = DatabaseService(userID: userID);
     names = await database.getMedicationName();
@@ -39,6 +45,7 @@ class _MedicationListState extends State<MedicationList> {
       .toList();
     days = (await database.getDays()).map((days) => days.cast<String>())
       .toList();
+    slashDays();
     frequencies = await database.getFreq();
   }
 

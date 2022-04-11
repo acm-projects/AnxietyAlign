@@ -34,9 +34,7 @@ class _JournalState extends State<Journal> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-      child: buildHelper,
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()));
+  Widget build(BuildContext context) => buildHelper;
 
   void buildJournals() => setState(() => buildHelper = Journals(
       userID: userID,
