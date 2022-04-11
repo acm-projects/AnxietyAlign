@@ -5,7 +5,11 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:anxiety_align/widgets/audio_visualizer.dart';
 import 'package:anxiety_align/services/database.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:anxiety_align/services/storage.dart';
+=======
+import 'package:counter/services/storage.dart';
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 =======
 import 'package:counter/services/storage.dart';
 >>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
@@ -67,7 +71,11 @@ class _CardState extends State<Card> {
     audio = await storage.getJournalAudioFromID(widget.timestamp) ?? <int>[];
     decibels = await storage.getJournalDecibelsFromID(widget.timestamp)
 <<<<<<< HEAD
+<<<<<<< HEAD
         ?? <double>[];
+=======
+      ?? <double>[];
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 =======
       ?? <double>[];
 >>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692

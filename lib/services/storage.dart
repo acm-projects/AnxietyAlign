@@ -24,14 +24,20 @@ class StorageService {
 
   UploadTask setJournalAudio(String id, List<int> audio)
 <<<<<<< HEAD
+<<<<<<< HEAD
   => ref.child(id).child('audio.txt').putString(audio.toString());
 
   UploadTask setJournalDecibels(String id, List<double> decibels)
   => ref.child(id).child('decibels.txt').putString(decibels.toString());
 =======
+=======
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
     => ref.child(id).child('audio.txt').putString(audio.toString());
 
   UploadTask setJournalDecibels(String id, List<double> decibels)
     => ref.child(id).child('decibels.txt').putString(decibels.toString());
+<<<<<<< HEAD
+>>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
+=======
 >>>>>>> bfa2aba369f663462aec40e973e678d0c6dfc692
 }
