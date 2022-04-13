@@ -74,8 +74,8 @@ class _CardState extends State<Card> {
     body: body()
   );
 
-  Widget body() => Container(
-    margin: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+  Widget body() => Padding(
+    padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -92,7 +92,7 @@ class _CardState extends State<Card> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             arrowButton()
-          ],
+          ]
         )
       ]
     )
@@ -106,14 +106,21 @@ class _CardState extends State<Card> {
         style: TextStyle(
         fontSize: 22.0,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Wingdings'
+        fontFamily: 'WingDings'
         )
       ),
       widget.widgetSpace,
       TextFormField(
         controller: textController,
         decoration: InputDecoration(
-          disabledBorder: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.darkGreen,
+              width: 2.5
+            ),
+            borderRadius: BorderRadius.circular(7.5)
+          ),
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: widget.darkGreen,
               width: 2.5
@@ -124,12 +131,12 @@ class _CardState extends State<Card> {
           fillColor: Colors.white
         ),
         style: const TextStyle(
-          fontSize: 12.0,
-          fontFamily: 'Wingdings'
+          fontSize: 22.0,
+          fontFamily: 'WingDings'
         ),
-        maxLines: 9,
-        minLines: 9,
-        enabled: false
+        readOnly: true,
+        maxLines: 5,
+        minLines: 5
       )
     ]
   );
@@ -142,7 +149,7 @@ class _CardState extends State<Card> {
         style: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Wingdings'
+          fontFamily: 'WingDings'
         )
       ),
       widget.widgetSpace,
@@ -162,7 +169,9 @@ class _CardState extends State<Card> {
                   default:
                     currentDecibels.clear();
                     decibelSubscription = player.onProgress!.listen((event) {
-                      currentDecibels.add(decibels[currentDecibels.length]);
+                      if(currentDecibels.length < decibels.length) {
+                        currentDecibels.add(decibels[currentDecibels.length]);
+                      }
                       setState(() { });
                     });
                     await player.startPlayer(

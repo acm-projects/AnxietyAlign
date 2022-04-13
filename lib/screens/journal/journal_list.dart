@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 import 'package:anxiety_align/widgets/journal_entry.dart';
 
-class Journals extends StatefulWidget {
+class JournalList extends StatefulWidget {
   final String userID;
   final DateTime timestamp;
   final List<String> timestamps;
@@ -13,7 +13,7 @@ class Journals extends StatefulWidget {
   final double horizontalMargin;
   final SizedBox sectionSpace;
   final SizedBox widgetSpace;
-  const Journals({
+  const JournalList({
     Key? key,
     required this.userID,
     required this.timestamp,
@@ -27,10 +27,10 @@ class Journals extends StatefulWidget {
     this.widgetSpace = const SizedBox(height: 10.0)
   }) : super(key: key);
   @override
-  State<Journals> createState() => _JournalsState();
+  State<JournalList> createState() => _JournalListState();
 }
 
-class _JournalsState extends State<Journals> {
+class _JournalListState extends State<JournalList> {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: widget.lightGreen,

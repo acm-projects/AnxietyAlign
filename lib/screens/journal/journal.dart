@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:anxiety_align/screens/journal/card.dart' as card;
-import 'package:anxiety_align/screens/journal/journals.dart';
+import 'package:anxiety_align/screens/journal/journal_list.dart';
 import 'package:anxiety_align/services/auth.dart';
 import 'package:anxiety_align/services/database.dart';
 
@@ -18,7 +18,7 @@ class _JournalState extends State<Journal> {
   @override
   void initState() {
     userID = AuthService().currUserID!;
-    buildHelper = Journals(
+    buildHelper = JournalList(
       userID: userID,
       timestamp: DateTime.now(),
       timestamps: const <String>[],
@@ -38,7 +38,7 @@ class _JournalState extends State<Journal> {
   Widget build(BuildContext context) => buildHelper;
 
   void buildJournals() =>
-    setState(() => buildHelper = Journals(
+    setState(() => buildHelper = JournalList(
       userID: userID,
       timestamp: DateTime.now(),
       timestamps: timestamps,
