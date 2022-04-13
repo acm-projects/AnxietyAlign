@@ -39,74 +39,85 @@ class Medication extends StatefulWidget {
 
 class _MedicationState extends State<Medication> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-    backgroundColor: widget.lightGreen,
-    body: widget.noMedications ? Padding(
-      padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
-      child: noMedicationBody()) : medicationBody(),
-    bottomNavigationBar: const BottomBar()
-  );
-
-  Widget noMedicationBody() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      widget.widgetSpace,
-      button(
-        () => Navigator.push(
+  Widget build(BuildContext context) {
+    List<Widget> children = <Widget>[];
+    children.add(widget.sectionSpace);
+    children.add(Align(
+      alignment: Alignment.centerLeft,
+      child: IconButton(
+        onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Settings())
         ),
-        Icons.arrow_back_sharp
+        icon: const Icon(
+          Icons.arrow_back_sharp,
+          size: 40,
+          color: Colors.black
+        )
+      )
+    ));
+    children.add(widget.sectionSpace);
+    children.add(Padding(
+      padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+      child: title()
+    ));
+    if(widget.noMedications) {
+      children.add(widget.widgetSpace);
+      children.add(Padding(
+        padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+        child: none()
+      ));
+      children.add(widget.widgetSpace);
+      children.add(Padding(
+        padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+        child: addMedicationButton()
+      ));
+    }
+    else {
+      children.add(Expanded(child: Container()));
+      children.add(medicationBody());
+      children.add(widget.sectionSpace);
+      children.add(traverseMedicationButtons());
+      children.add(Expanded(child: Container()));
+      children.add(Padding(
+        padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+        child: Row(
+          children: <Widget>[
+            removeMedicationButton(),
+            Expanded(child: Container()),
+            addMedicationButton()
+          ],
+        )
+      ));
+    }
+    children.add(widget.widgetSpace);
+    return Scaffold(
+      backgroundColor: widget.lightGreen,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children
       ),
-      widget.sectionSpace,
-      title(),
-      widget.widgetSpace,
-      none(),
-      widget.widgetSpace,
-      addMedicationButton()
-    ],
-  );
+      bottomNavigationBar: const BottomBar()
+    );
+  }
 
   Widget medicationBody() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Padding(
         padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            widget.widgetSpace,
-            button(
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Settings())
-              ),
-              Icons.arrow_back_sharp
-            ),
-            widget.sectionSpace,
-            title(),
-            widget.widgetSpace,
             name(),
+            widget.widgetSpace,
             widget.widgetSpace,
             dosage(),
             widget.widgetSpace,
             frequencyPerWeek(),
             widget.widgetSpace,
+            widget.widgetSpace,
             frequencyPerDay()
           ]
-        )
-      ),
-      widget.sectionSpace,
-      traverseMedicationButtons(),
-      widget.widgetSpace,
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
-        child: Row(
-          children: <Widget>[
-            removeMedicationButton(),
-            const SizedBox(width: 10.0),
-            addMedicationButton()
-          ],
         )
       )
     ]
@@ -130,7 +141,7 @@ class _MedicationState extends State<Medication> {
     child: Center(child: Icon(icon, size: 28))
   );
 
-  Widget title() => const Text('Current\nMedications:',
+  Widget title() => const Text('Current Medications:',
     style: TextStyle(
       color: Colors.black,
       fontSize: 36.0,
@@ -161,17 +172,13 @@ class _MedicationState extends State<Medication> {
   );
 
   Widget textbox(String text, [double? width]) => Container(
-    alignment: Alignment.topCenter,
+    alignment: Alignment.center,
     decoration: BoxDecoration(
       color: Colors.white,
-      border: Border.all(
-        color: widget.darkGreen,
-        width: 2.5
-      ),
       borderRadius: BorderRadius.circular(10.0)
     ),
     width: width,
-    height: 40.0,
+    height: 35.0,
     child: subtitle(text)
   );
 
@@ -179,7 +186,7 @@ class _MedicationState extends State<Medication> {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       subtitle('Name:'),
-      widget.widgetSpace,
+      const SizedBox(height: 5.0),
       textbox(widget.name, 350.0)
     ]
   );
@@ -201,7 +208,7 @@ class _MedicationState extends State<Medication> {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       subtitle('Frequency per week:'),
-      widget.widgetSpace,
+      const SizedBox(height: 5.0),
       textbox(widget.days.join(' '), 350.0)
     ]
   );
@@ -256,26 +263,24 @@ class _MedicationState extends State<Medication> {
     )
   );
 
-  Widget addMedicationButton() => OutlinedButton(
-    onPressed: () => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MedPage())
-    ),
-    style: OutlinedButton.styleFrom(
-      primary: Colors.black,
-      backgroundColor: Colors.white,
-      fixedSize: const Size(200.0, 50.0),
-      side: BorderSide(
-        color: widget.darkGreen,
-        width: 3.0
+  Widget addMedicationButton() => SizedBox(
+    width: 50.0,
+    height: 50.0,
+    child: TextButton(
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MedPage())
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        side: BorderSide(color: widget.darkGreen)
-      )
-    ),
-    child: Center(
-      child: subtitle(widget.noMedications ? '+ add one' : '+ add another')
+      style: TextButton.styleFrom(
+        primary: Colors.black,
+        backgroundColor: Colors.white,
+        side: BorderSide(
+          color: widget.darkGreen,
+          width: 3.0
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))
+      ),
+      child: const Center(child: Icon(Icons.add))
     )
   );
 }

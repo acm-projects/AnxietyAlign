@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:anxiety_align/services/database.dart';
 import 'package:anxiety_align/services/auth.dart';
-import 'package:anxiety_align/screens/home.dart';
+import 'package:anxiety_align/screens/settings/medication_list.dart';
+
 
 class MedPage extends StatefulWidget {
   @override
@@ -585,7 +586,7 @@ class _MedPageState extends State<MedPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Home()));
+                                    builder: (context) => MedicationList()));
                           }
                         },
                         style: OutlinedButton.styleFrom(
