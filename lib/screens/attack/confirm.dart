@@ -8,7 +8,9 @@ class Confirm extends StatefulWidget {
   final Function setTimestamp;
   final Color lightGreen;
   final Color darkGreen;
+  final double horizontalMargin;
   final SizedBox sectionSpace;
+  final SizedBox widgetSpace;
   const Confirm({
     Key? key,
     required this.section,
@@ -16,7 +18,9 @@ class Confirm extends StatefulWidget {
     required this.setTimestamp,
     this.lightGreen = const Color(0xFF96B4A0),
     this.darkGreen = const Color(0xFF3A8628),
-    this.sectionSpace = const SizedBox(height: 30.0)
+    this.horizontalMargin = 15.0,
+    this.sectionSpace = const SizedBox(height: 30.0),
+    this.widgetSpace = const SizedBox(height: 10.0)
   }) : super(key: key);
   @override
   State<Confirm> createState() => _ConfirmState();
@@ -26,16 +30,18 @@ class _ConfirmState extends State<Confirm> {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: widget.lightGreen,
-    body: body()
+    body: Padding(
+      padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+      child: body()
+    )
   );
 
   Widget body() {
     List<Widget> children = <Widget>[];
     if(widget.section == attack.Section.journal) {
-      children.add(const SizedBox(height: 80.0));
       children.add(icon());
-      children.add(const SizedBox(height: 35.0));
-    };
+      children.add(widget.widgetSpace);
+    }
     children.addAll(<Widget>[
       title(),
       widget.sectionSpace,
@@ -44,8 +50,7 @@ class _ConfirmState extends State<Confirm> {
       button('no')
     ]);
     return Column(
-      mainAxisAlignment: widget.section == attack.Section.journal
-        ? MainAxisAlignment.start : MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: children
     );
   }
@@ -75,13 +80,12 @@ class _ConfirmState extends State<Confirm> {
         widget.changePage(attack.Page.question);
         return;
       }
-      else
-        {
-          {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Home()));
-          }
-        }
+      else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Home())
+        );
+      }
     },
     style: OutlinedButton.styleFrom(
       primary: Colors.black,
@@ -96,6 +100,7 @@ class _ConfirmState extends State<Confirm> {
         color: widget.darkGreen,
         width: 4.0
       ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))
     ),
     child: Text(text)
   );

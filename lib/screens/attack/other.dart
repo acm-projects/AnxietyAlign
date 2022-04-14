@@ -29,7 +29,7 @@ class Other extends StatefulWidget {
     this.highlightGreen = const Color(0xFFD3FBCD),
     this.lightGreen = const Color(0xFF96B4A0),
     this.darkGreen = const Color(0xFF3A8628),
-    this.horizontalMargin = 30.0,
+    this.horizontalMargin = 15.0,
     this.wideSpace = const SizedBox(height: 60.0),
     this.sectionSpace = const SizedBox(height: 30.0),
     this.widgetSpace = const SizedBox(height: 10.0)
@@ -57,12 +57,13 @@ class _OtherState extends State<Other> {
   );
 
   Widget body() => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
       Container(
         padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
         child: Column(
           children: <Widget>[
-            widget.wideSpace,
             Center(child: Image.asset('assets/images/messages.png')),
             widget.sectionSpace,
             title(),
@@ -108,9 +109,9 @@ class _OtherState extends State<Other> {
         color: widget.darkGreen,
         width: 2.5
       ),
-      borderRadius: BorderRadius.circular(7.5)
+      borderRadius: BorderRadius.circular(10.0)
     ),
-    height: 45.0,
+    height: 40.0,
     child: const Text(
       '   other',
       style: TextStyle(
@@ -120,6 +121,14 @@ class _OtherState extends State<Other> {
         letterSpacing: 3.0
       ),
     )
+  );
+
+  OutlineInputBorder textEntryBorder() => OutlineInputBorder(
+    borderSide: BorderSide(
+      color: widget.darkGreen,
+      width: 2.5
+    ),
+    borderRadius: BorderRadius.circular(10.0)
   );
 
   Widget textEntry() => Column(
@@ -140,19 +149,17 @@ class _OtherState extends State<Other> {
         child: TextFormField(
           controller: textController,
           decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: widget.darkGreen,
-                width: 2.5
-              ),
-              borderRadius: BorderRadius.circular(7.5)
-            ),
+            errorBorder: textEntryBorder(),
+            focusedBorder: textEntryBorder(),
+            focusedErrorBorder: textEntryBorder(),
+            enabledBorder: textEntryBorder(),
             filled: true,
             fillColor: Colors.white
           ),
-          style: const TextStyle(fontSize: 12.0),
-          maxLines: 5,
-          minLines: 5,
+          style: const TextStyle(fontSize: 22.0),
+          cursorColor: Colors.black,
+          maxLines: 2,
+          minLines: 2,
           onChanged: (text) => setState(() { }),
           validator: ((text) {
             if(text == null) return 'Text cannot be empty';

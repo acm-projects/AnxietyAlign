@@ -35,8 +35,8 @@ class _AttackJournalState extends State<Journal> {
   Widget body() => Container(
     margin: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        widget.sectionSpace,
         Image.asset('assets/images/book_open.png'),
         widget.sectionSpace,
         JournalEntry(
@@ -50,7 +50,8 @@ class _AttackJournalState extends State<Journal> {
           darkGreen: widget.darkGreen,
           sectionSpace: widget.sectionSpace,
           widgetSpace: widget.widgetSpace
-        )
+        ),
+        widget.widgetSpace
       ]
     )
   );

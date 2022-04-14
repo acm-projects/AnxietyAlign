@@ -14,6 +14,7 @@ class Question extends StatefulWidget {
   final Color highlightGreen;
   final Color lightGreen;
   final Color darkGreen;
+  final double horizontalMargin;
   final SizedBox sectionSpace;
   const Question({
     Key? key,
@@ -28,6 +29,7 @@ class Question extends StatefulWidget {
     this.highlightGreen = const Color(0xFFD3FBCD),
     this.lightGreen = const Color(0xFF96B4A0),
     this.darkGreen = const Color(0xFF3A8628),
+    this.horizontalMargin = 15.0,
     this.sectionSpace = const SizedBox(height: 30.0)
   }) : super(key: key);
   @override
@@ -44,15 +46,15 @@ class _QuestionState extends State<Question> {
   Widget body() {
     List<String> options = getOptions(widget.section);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const SizedBox(height: 75.0),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
           child: title()
         ),
         const SizedBox(height: 50.0),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
           child: Column(
             children: <Widget>[
               questionButton(0, options[0]),
@@ -158,13 +160,13 @@ class _QuestionState extends State<Question> {
         fontWeight: FontWeight.bold,
         letterSpacing: 3.0
       ),
-      minimumSize: const Size(75.0, 45.0),
+      minimumSize: const Size(75.0, 40.0),
       side: BorderSide(
         color: widget.darkGreen,
         width: 2.5
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(7.5),
+        borderRadius: BorderRadius.circular(10.0),
         side: BorderSide(color: widget.darkGreen)
       )
     ),

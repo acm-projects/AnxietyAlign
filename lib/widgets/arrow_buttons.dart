@@ -104,17 +104,20 @@ class _ArrowButtonsState extends State<ArrowButtons> {
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold
         ),
-        minimumSize: const Size(100.0, 45.0),
+        fixedSize: const Size(100.0, 40.0),
         side: BorderSide(
           color: widget.darkGreen,
           width: 3.0
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7.5),
+          borderRadius: BorderRadius.circular(10.0),
           side: BorderSide(color: widget.darkGreen)
         )
       ),
-      child: Center(child: Text(text))
+      child: Center(child: Icon(
+        text == 'prev' ? Icons.arrow_back_sharp : Icons.arrow_forward_sharp,
+        size: 28
+      ))
     )
   );
 }

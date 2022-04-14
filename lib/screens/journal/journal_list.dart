@@ -92,7 +92,7 @@ class _JournalListState extends State<JournalList> {
 
   Widget cardButton(String timestamp) => Ink(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(7.5),
+      borderRadius: BorderRadius.circular(10.0),
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,

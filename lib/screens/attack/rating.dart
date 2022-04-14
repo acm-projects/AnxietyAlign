@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:anxiety_align/widgets/arrow_buttons.dart';
 import 'package:anxiety_align/screens/attack/attack.dart' as attack;
+import 'package:anxiety_align/widgets/arrow_buttons.dart';
 
 class Rating extends StatefulWidget {
   final attack.Page page;
@@ -15,6 +15,7 @@ class Rating extends StatefulWidget {
   final Color highlightGreen;
   final Color lightGreen;
   final Color darkGreen;
+  final double horizontalMargin;
   const Rating({
     Key? key,
     required this.page,
@@ -28,7 +29,8 @@ class Rating extends StatefulWidget {
     required this.changeOther,
     this.highlightGreen = const Color(0xFFD3FBCD),
     this.lightGreen = const Color(0xFF96B4A0),
-    this.darkGreen = const Color(0xFF3A8628)
+    this.darkGreen = const Color(0xFF3A8628),
+    this.horizontalMargin = 15.0
   }) : super(key: key);
   @override
   State<Rating> createState() => _RatingState();
@@ -42,19 +44,13 @@ class _RatingState extends State<Rating> {
   );
 
   Widget body() => Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: <Widget>[
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 150.0),
-            title(),
-            const SizedBox(height: 80.0)
-          ]
-        )
+        padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+        child: title()
       ),
       ratingButtons(),
-      const SizedBox(height: 100.0),
       ArrowButtons(
         page: widget.page,
         section: widget.section,
@@ -80,8 +76,8 @@ class _RatingState extends State<Rating> {
   );
 
   Widget ratingButtons() {
-    SizedBox buttonSpace = const SizedBox(width: 20.0);
-    SizedBox rowSpace = const SizedBox(height: 50.0);
+    SizedBox buttonSpace = const SizedBox(width: 15.0);
+    SizedBox rowSpace = const SizedBox(height: 15.0);
     return Column(
       children: <Widget>[
         Row(
@@ -91,28 +87,33 @@ class _RatingState extends State<Rating> {
             buttonSpace,
             ratingButton(2),
             buttonSpace,
-            ratingButton(3),
-            buttonSpace,
-            ratingButton(4),
-            buttonSpace,
-            ratingButton(5)
+            ratingButton(3)
           ]
         ),
         rowSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ratingButton(6),
+            ratingButton(4),
             buttonSpace,
+            ratingButton(5),
+            buttonSpace,
+            ratingButton(6)
+          ]
+        ),
+        rowSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             ratingButton(7),
             buttonSpace,
             ratingButton(8),
             buttonSpace,
-            ratingButton(9),
-            buttonSpace,
-            ratingButton(10)
+            ratingButton(9)
           ]
-        )
+        ),
+        rowSpace,
+        ratingButton(10)
       ],
     );
   }
@@ -135,7 +136,7 @@ class _RatingState extends State<Rating> {
       ),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: widget.darkGreen),
-        borderRadius: BorderRadius.circular(8.0)
+        borderRadius: BorderRadius.circular(10.0)
       ),
       alignment: Alignment.center
     ),

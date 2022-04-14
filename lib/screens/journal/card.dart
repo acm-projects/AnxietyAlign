@@ -118,14 +118,14 @@ class _CardState extends State<Card> {
               color: widget.darkGreen,
               width: 2.5
             ),
-            borderRadius: BorderRadius.circular(7.5)
+            borderRadius: BorderRadius.circular(10.0)
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: widget.darkGreen,
               width: 2.5
             ),
-            borderRadius: BorderRadius.circular(7.5)
+            borderRadius: BorderRadius.circular(10.0)
           ),
           filled: true,
           fillColor: Colors.white
@@ -156,7 +156,7 @@ class _CardState extends State<Card> {
       Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(7.5)
+          borderRadius: BorderRadius.circular(10.0)
         ),
         height: 40.0,
         child: Row(
@@ -232,7 +232,7 @@ class _CardState extends State<Card> {
         width: 3.0
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(7.5),
+        borderRadius: BorderRadius.circular(10.0),
         side: BorderSide(color: widget.darkGreen)
       )
     ),
