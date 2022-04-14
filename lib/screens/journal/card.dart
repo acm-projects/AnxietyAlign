@@ -236,6 +236,6 @@ class _CardState extends State<Card> {
         side: BorderSide(color: widget.darkGreen)
       )
     ),
-    child: const Center(child: Text('back'))
+    child: const Center(child: Icon(Icons.arrow_back_sharp, size: 28.0))
   );
 }

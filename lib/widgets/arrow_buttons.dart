@@ -116,7 +116,7 @@ class _ArrowButtonsState extends State<ArrowButtons> {
       ),
       child: Center(child: Icon(
         text == 'prev' ? Icons.arrow_back_sharp : Icons.arrow_forward_sharp,
-        size: 28
+        size: 28.0
       ))
     )
   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:anxiety_align/screens/home.dart';
 import 'package:anxiety_align/widgets/bottombar.dart';
 import 'package:anxiety_align/widgets/journal_entry.dart';
 
@@ -41,32 +42,58 @@ class _JournalListState extends State<JournalList> {
 
   Widget body() {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           widget.sectionSpace,
-          JournalEntry(
-            userID: widget.userID,
-            timestamp: widget.timestamp,
-            onSave: () => widget.updateTimestamps(widget.timestamp.toString()),
-            lightGreen: widget.lightGreen,
-            darkGreen: widget.darkGreen,
-            sectionSpace: widget.sectionSpace,
-            widgetSpace: widget.widgetSpace
+          Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Home())
+                  ),
+                  icon: const Icon(
+                    Icons.arrow_back_sharp,
+                    size: 40,
+                    color: Colors.black
+                  )
+                )
+              )
+            ]
           ),
           widget.sectionSpace,
-          const Text(
-            'past entries:',
-            style: TextStyle(
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'WingDings'
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: widget.horizontalMargin),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                JournalEntry(
+                  userID: widget.userID,
+                  timestamp: widget.timestamp,
+                  onSave: () => widget.updateTimestamps(widget.timestamp.toString()),
+                  lightGreen: widget.lightGreen,
+                  darkGreen: widget.darkGreen,
+                  sectionSpace: widget.sectionSpace,
+                  widgetSpace: widget.widgetSpace
+                ),
+                widget.sectionSpace,
+                const Text(
+                  'past entries:',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'WingDings'
+                  )
+                ),
+                widget.widgetSpace,
+                pastEntries()
+              ]
             )
-          ),
-          widget.widgetSpace,
-          pastEntries()
+          )
         ]
       )
     );

@@ -90,9 +90,9 @@ class _OtherState extends State<Other> {
     ]
   );
 
-  Widget title() => const Text(
-    'what physical reactions are you having?',
-    style: TextStyle(
+  Widget title() => Text(
+    getTitle(),
+    style: const TextStyle(
       color: Colors.black,
       fontSize: 22.0,
       fontWeight: FontWeight.bold,
@@ -100,6 +100,18 @@ class _OtherState extends State<Other> {
     ),
     textAlign: TextAlign.center
   );
+  String getTitle() {
+    switch(widget.section) {
+      case attack.Section.symptoms:
+        return 'what physical reactions are you having?';
+      case attack.Section.triggers:
+        return 'what was the source of your anxious feeling?';
+      case attack.Section.thoughts:
+        return 'what are your thoughts at the moment?';
+      default:
+        return 'what did you do to calm down?';
+    }
+  }
 
   Widget otherButton() => Container(
     alignment: Alignment.centerLeft,
@@ -172,6 +184,15 @@ class _OtherState extends State<Other> {
             if(words > 5) return 'Text cannot be more than five words';
             return null;
           })
+        )
+      ),
+      widget.widgetSpace,
+      const Text(
+        '(you can add more in your journal at the end of the log!)',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+          letterSpacing: 3.0
         )
       )
     ]
