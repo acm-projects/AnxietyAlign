@@ -113,7 +113,8 @@ class _AttackState extends State<Attack> {
           changePage: changePage,
           changeSection: changeSection,
           changeOption: changeOption,
-          changeOther: changeOther
+          changeOther: changeOther,
+          changeRating: changeRating
         );
       case Page.other:
         return Other(
@@ -123,7 +124,8 @@ class _AttackState extends State<Attack> {
           changePage: changePage,
           changeSection: changeSection,
           changeOption: changeOption,
-          changeOther: changeOther
+          changeOther: changeOther,
+          changeRating: changeRating
         );
       default:
         return Journal(

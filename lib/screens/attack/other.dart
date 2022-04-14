@@ -10,6 +10,7 @@ class Other extends StatefulWidget {
   final Function changeSection;
   final Function changeOption;
   final Function changeOther;
+  final Function changeRating;
   final Color highlightGreen;
   final Color lightGreen;
   final Color darkGreen;
@@ -26,6 +27,7 @@ class Other extends StatefulWidget {
     required this.changeSection,
     required this.changeOption,
     required this.changeOther,
+    required this.changeRating,
     this.highlightGreen = const Color(0xFFD3FBCD),
     this.lightGreen = const Color(0xFF96B4A0),
     this.darkGreen = const Color(0xFF3A8628),
@@ -82,6 +84,7 @@ class _OtherState extends State<Other> {
         changeSection: widget.changeSection,
         changeOption: widget.changeOption,
         changeOther: widget.changeOther,
+        changeRating: widget.changeRating,
         rating: widget.rating,
         other: textController.text,
         darkGreen: widget.darkGreen,

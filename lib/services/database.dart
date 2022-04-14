@@ -119,7 +119,8 @@ class DatabaseService {
             ratings[0] += doc.get('rating');
           }
         }
-      } else if ((DateTime.now().month - 6 <= timestamps[i].month) ||
+      }
+      if ((DateTime.now().month - 6 <= timestamps[i].month-6) ||
           (timestamps[i].month <= cMonth)) {
         for (QueryDocumentSnapshot doc in snapshot.docs) {
           if (timestamps[i].toString() == doc.id) {
@@ -127,7 +128,8 @@ class DatabaseService {
             ratings[2] += doc.get('rating');
           }
         }
-      } else if ((DateTime.now().year - 1 <= timestamps[i].year)) {
+      }
+      if ((DateTime.now().year - 1 <= timestamps[i].year-1)) {
         for (QueryDocumentSnapshot doc in snapshot.docs) {
           if (timestamps[i].toString() == doc.id) {
             ratings[5]++;

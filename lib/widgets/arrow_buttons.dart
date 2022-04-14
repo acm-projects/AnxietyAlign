@@ -8,6 +8,7 @@ class ArrowButtons extends StatefulWidget {
   final Function changeSection;
   final Function changeOption;
   final Function changeOther;
+  final Function changeRating;
   final int rating;
   final String other;
   final Function? onNext;
@@ -20,6 +21,7 @@ class ArrowButtons extends StatefulWidget {
     required this.changeSection,
     required this.changeOption,
     required this.changeOther,
+    required this.changeRating,
     required this.rating,
     this.other = '',
     this.darkGreen = const Color(0xFF3A8628),
@@ -81,10 +83,13 @@ class _ArrowButtonsState extends State<ArrowButtons> {
           widget.changePage(attack.Page.question);
         }
         else if(widget.page == attack.Page.rating) {
+          if(widget.rating <= 0) {
+            widget.changeRating(0);
+            return;
+          }
           widget.changePage(attack.Page.question);
         }
         if(widget.section == attack.Section.solution) {
-          if(widget.rating == -1) return;
           widget.changePage(attack.Page.confirm);
           widget.changeSection(attack.Section.journal);
           return;

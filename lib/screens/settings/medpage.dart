@@ -33,7 +33,9 @@ class _MedPageState extends State<MedPage> {
           " " +
           tsdate.hour.toString() +
           ":" +
-          tsdate.minute.toString();
+          tsdate.minute.toString() +
+          ":" +
+          tsdate.second.toString();
       return datetime;
     }
 

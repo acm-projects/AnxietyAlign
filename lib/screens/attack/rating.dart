@@ -51,15 +51,22 @@ class _RatingState extends State<Rating> {
         child: title()
       ),
       ratingButtons(),
-      ArrowButtons(
-        page: widget.page,
-        section: widget.section,
-        changePage: widget.changePage,
-        changeSection: widget.changeSection,
-        changeOption: widget.changeOption,
-        changeOther: widget.changeOther,
-        rating: widget.rating,
-        darkGreen: widget.darkGreen
+      Column(
+        children: <Widget>[
+          ArrowButtons(
+            page: widget.page,
+            section: widget.section,
+            changePage: widget.changePage,
+            changeSection: widget.changeSection,
+            changeOption: widget.changeOption,
+            changeOther: widget.changeOther,
+            changeRating: widget.changeRating,
+            rating: widget.rating,
+            darkGreen: widget.darkGreen
+          ),
+          const SizedBox(height: 5.0),
+          errorMessage()
+        ]
       )
     ]
   );
@@ -141,5 +148,16 @@ class _RatingState extends State<Rating> {
       alignment: Alignment.center
     ),
     child: Text(rating.toString())
+  );
+
+  Widget errorMessage() => Text(
+    widget.rating == 0 ? 'please select an option to continue' : '',
+    style: const TextStyle(
+      color: Colors.black,
+      fontSize: 16.0,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 5.0
+    ),
+    textAlign: TextAlign.center
   );
 }
