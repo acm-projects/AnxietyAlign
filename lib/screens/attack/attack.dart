@@ -22,7 +22,7 @@ class _AttackState extends State<Attack> {
   late Page page;
   late Section section;
   late int rating;
-  late List<int> options;
+  late List<List<bool>> options;
   late List<String> others;
 
   @override
@@ -30,7 +30,12 @@ class _AttackState extends State<Attack> {
     userID = AuthService().currUserID!;
     page = Page.confirm;
     section = Section.symptoms;rating = -1;
-    options = List<int>.filled(4, -1);
+    options = <List<bool>>[
+      List<bool>.filled(5, false),
+      List<bool>.filled(5, false),
+      List<bool>.filled(5, false),
+      List<bool>.filled(5, false)
+    ];
     others = List<String>.filled(4, '');
     super.initState();
   }
@@ -52,23 +57,23 @@ class _AttackState extends State<Attack> {
     switch(section) {
       case Section.symptoms:
         if(page == Page.other && text == 'prev') break;
-        if(page == Page.other && text == 'next' && options[0] == option) break;
-        options[0] = options[0] == option ? -1 : option;
+        if(page == Page.other && text == 'next' && options[0][option]) break;
+        options[0][option] = !options[0][option];
         break;
       case Section.triggers:
         if(page == Page.other && text == 'prev') break;
-        if(page == Page.other && text == 'next' && options[1] == option) break;
-        options[1] = options[1] == option ? -1 : option;
+        if(page == Page.other && text == 'next' && options[1][option]) break;
+        options[1][option] = !options[1][option];
         break;
       case Section.thoughts:
         if(page == Page.other && text == 'prev') break;
-        if(page == Page.other && text == 'next' && options[2] == option) break;
-        options[2] = options[2] == option ? -1 : option;
+        if(page == Page.other && text == 'next' && options[2][option]) break;
+        options[2][option] = !options[2][option];
         break;
       case Section.solution:
         if(page == Page.other && text == 'prev') break;
-        if(page == Page.other && text == 'next' && options[3] == option) break;
-        options[3] = options[3] == option ? -1 : option;
+        if(page == Page.other && text == 'next' && options[3][option]) break;
+        options[3][option] = !options[3][option];
         break;
       default:
     }

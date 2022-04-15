@@ -326,100 +326,62 @@ class DatabaseService {
     return null;
   }
 
-  void logAttack(
-      DateTime timestamp, int rating, List<int> options, List<String> others) {
+  void logAttack(DateTime timestamp, int rating, List<List<bool>> options,
+  List<String> others) {
     DocumentReference userRef = usersCollection.doc(userID);
     CollectionReference collection = userRef.collection('ratings');
-    DocumentReference? doc = collection.doc(timestamp.toString());
+    DocumentReference doc = collection.doc(timestamp.toString());
     doc.set({'timestamp': timestamp, 'rating': rating});
     collection = userRef.collection('symptoms');
-    switch (options[0]) {
-      case 0:
-        doc = collection.doc('rapid_breathing');
-        break;
-      case 1:
-        doc = collection.doc('heart_rate');
-        break;
-      case 2:
-        doc = collection.doc('shaking');
-        break;
-      case 3:
-        doc = collection.doc('dizziness');
-        break;
-      case 4:
-        doc = collection.doc('other');
-        break;
-      default:
-        doc = null;
+    for(int i = 0; i < 5; i++) {
+      if(!options[0][i]) continue;
+      switch(i) {
+        case 0: doc = collection.doc('rapid_breathing'); break;
+        case 1: doc = collection.doc('heart_rate'); break;
+        case 2: doc = collection.doc('shaking'); break;
+        case 3: doc = collection.doc('dizziness'); break;
+        case 4: doc = collection.doc('other'); break;
+      }
+      incrementCount(doc, others[0]);
     }
-    incrementCount(doc, others[0]);
     collection = userRef.collection('triggers');
-    switch (options[1]) {
-      case 0:
-        doc = collection.doc('loved_one');
-        break;
-      case 1:
-        doc = collection.doc('social_event');
-        break;
-      case 2:
-        doc = collection.doc('academic_stress');
-        break;
-      case 3:
-        doc = collection.doc('financial_distress');
-        break;
-      case 4:
-        doc = collection.doc('other');
-        break;
-      default:
-        doc = null;
+    for(int i = 0; i < 5; i++) {
+      if(!options[1][i]) continue;
+      switch(i) {
+        case 0: doc = collection.doc('loved_one'); break;
+        case 1: doc = collection.doc('social_event'); break;
+        case 2: doc = collection.doc('academic_stress'); break;
+        case 3: doc = collection.doc('financial_distress'); break;
+        case 4: doc = collection.doc('other'); break;
+      }
+      incrementCount(doc, others[1]);
     }
-    incrementCount(doc, others[1]);
     collection = userRef.collection('thoughts');
-    switch (options[2]) {
-      case 0:
-        doc = collection.doc('stressed');
-        break;
-      case 1:
-        doc = collection.doc('upset');
-        break;
-      case 2:
-        doc = collection.doc('exhausted');
-        break;
-      case 3:
-        doc = collection.doc('inadequate');
-        break;
-      case 4:
-        doc = collection.doc('other');
-        break;
-      default:
-        doc = null;
+    for(int i = 0; i < 5; i++) {
+      if(!options[2][i]) continue;
+      switch(i) {
+        case 0: doc = collection.doc('stressed'); break;
+        case 1: doc = collection.doc('upset'); break;
+        case 2: doc = collection.doc('exhausted'); break;
+        case 3: doc = collection.doc('inadequate'); break;
+        case 4: doc = collection.doc('other'); break;
+      }
+      incrementCount(doc, others[2]);
     }
-    incrementCount(doc, others[2]);
     collection = userRef.collection('solution');
-    switch (options[3]) {
-      case 0:
-        doc = collection.doc('breathing_exercises');
-        break;
-      case 1:
-        doc = collection.doc('focus_object');
-        break;
-      case 2:
-        doc = collection.doc('light_exercise');
-        break;
-      case 3:
-        doc = collection.doc('leaving_environment');
-        break;
-      case 4:
-        doc = collection.doc('other');
-        break;
-      default:
-        doc = null;
+    for(int i = 0; i < 5; i++) {
+      if(!options[3][i]) continue;
+      switch(i) {
+        case 0: doc = collection.doc('breathing_exercises'); break;
+        case 1: doc = collection.doc('focus_object'); break;
+        case 2: doc = collection.doc('light_exercise'); break;
+        case 3: doc = collection.doc('leaving_environment'); break;
+        case 4: doc = collection.doc('other'); break;
+      }
+      incrementCount(doc, others[3]);
     }
-    incrementCount(doc, others[3]);
   }
-
-  Future<void> incrementCount(DocumentReference? doc, String other) async {
-    if (doc == null) return;
+  Future<void> incrementCount(DocumentReference doc, String other) async {
     try {
       DocumentSnapshot snapshot = await doc.get();
       doc.set({'count': snapshot.get('count') + 1});

@@ -6,7 +6,7 @@ class Rating extends StatefulWidget {
   final attack.Page page;
   final attack.Section section;
   final int rating;
-  final List<int> options;
+  final List<List<bool>> options;
   final Function changePage;
   final Function changeSection;
   final Function changeRating;

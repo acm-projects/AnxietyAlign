@@ -6,7 +6,7 @@ class Question extends StatefulWidget {
   final attack.Page page;
   final attack.Section section;
   final int rating;
-  final List<int> options;
+  final List<List<bool>> options;
   final Function changePage;
   final Function changeSection;
   final Function changeOption;
@@ -179,13 +179,11 @@ class _QuestionState extends State<Question> {
     )
   );
   bool isHighlighted(int option) {
-    int highlighted;
     switch(widget.section) {
-      case attack.Section.symptoms: highlighted = widget.options[0]; break;
-      case attack.Section.triggers: highlighted = widget.options[1]; break;
-      case attack.Section.thoughts: highlighted = widget.options[2]; break;
-      default: highlighted = widget.options[3];
+      case attack.Section.symptoms: return widget.options[0][option];
+      case attack.Section.triggers: return widget.options[1][option];
+      case attack.Section.thoughts: return widget.options[2][option];
+      default: return widget.options[3][option];
     }
-    return option == highlighted ? true : false;
   }
 }
