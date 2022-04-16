@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "802468649001",
+    "firebase_url": "https://axal-74aa7-default-rtdb.firebaseio.com",
+    "project_id": "axal-74aa7",
+    "storage_bucket": "axal-74aa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802468649001:android:78ed46d0152a670411e438",
+        "android_client_info": {
+          "package_name": "com.example.anxiety_align"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802468649001-aeetfbla187suerruddqbfglh5mj5ub8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChhYSIUdQ8QO6A90WJKaVFnkW0PkMDrcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802468649001-aeetfbla187suerruddqbfglh5mj5ub8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802468649001-8c0ikie7e0tkqd5br1s4h86bjrrjfp52.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
