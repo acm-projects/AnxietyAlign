@@ -14,7 +14,7 @@ class _MedicationListState extends State<MedicationList> {
   late final String userID;
   late int index;
   late List<String> names;
-  late List<int> dosages;
+  late List<double> dosages;
   late List<List<String>> days;
   late List<int> frequencies;
   Widget? buildHelper;
@@ -29,7 +29,7 @@ class _MedicationListState extends State<MedicationList> {
   Future<void> initAsync() async {
     database = DatabaseService(userID: userID);
     names = await database.getMedicationName();
-    dosages = (await database.getDosage()).map((dosage) => int.parse(dosage))
+    dosages = (await database.getDosage()).map((dosage) => double.parse(dosage))
       .toList();
     days = (await database.getDays()).map((days) => days.cast<String>())
       .toList();

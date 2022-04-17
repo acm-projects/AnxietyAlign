@@ -91,10 +91,7 @@ class _Graphs3State extends State<Graphs3> {
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                        color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -115,17 +112,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -146,17 +140,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -196,10 +187,7 @@ class _Graphs3State extends State<Graphs3> {
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -220,17 +208,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -251,17 +236,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -301,10 +283,7 @@ class _Graphs3State extends State<Graphs3> {
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -325,17 +304,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -356,17 +332,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -406,10 +379,7 @@ class _Graphs3State extends State<Graphs3> {
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -430,17 +400,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(
@@ -461,17 +428,14 @@ class _Graphs3State extends State<Graphs3> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3.0),
+                SizedBox(height: 8.0),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     height: 30.0,
                     width: 440.0,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFFFFFFFF),
-                        width: 2.0,
-                      ),
+                      color: Color(0xFFD3FBCD),
                       borderRadius: BorderRadius.circular(7.0),
                     ),
                     child: Align(

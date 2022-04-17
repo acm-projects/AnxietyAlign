@@ -65,42 +65,15 @@ class _SettingsState extends State<Settings> {
                 Wrap(children: [
                   Container(
                       width: 250,
-                      child: !_isEnable
-                          ? Text((username ?? 'John'),
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.visible,
-                              style: TextStyle(
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 5.0,
-                                  color: Colors.black,
-                                  fontFamily: 'WingDing'))
-                          : TextFormField(
-                              decoration: InputDecoration(
-                                  hintText: 'Name',
-                                  hintStyle: TextStyle(
-                                      overflow: TextOverflow.visible,
-                                      fontSize: 28,
-                                      fontFamily: 'WingDing')),
-                              initialValue: username ?? 'John Doe',
-                              textInputAction: TextInputAction.done,
-                              onFieldSubmitted: (value) {
-                                setState(() => {
-                                      _isEnable = false,
-                                      username = value,
-                                      setUser(value)
-                                    });
-                              })), //flexible
-                  Container(
-                      child: IconButton(
-                    icon: Icon(Icons.mode_edit,
-                        size: 40, color: Color(0xffd3fbcd)),
-                    onPressed: () {
-                      setState(() {
-                        _isEnable = true;
-                      });
-                    },
-                  )) //flexible
+                      child: Text((username ?? 'John'),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 5.0,
+                              color: Colors.black,
+                              fontFamily: 'WingDing'))), //flexible//flexible
                 ])
               ]),
           SizedBox(height: 5),
@@ -153,7 +126,9 @@ class _SettingsState extends State<Settings> {
                 width: 4.0,
               ),
             ),
-            child: Text('change password', style: TextStyle(fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
+            child: Text('change password',
+                style: TextStyle(
+                    fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ChangePass()));
@@ -161,28 +136,30 @@ class _SettingsState extends State<Settings> {
           ),
           SizedBox(height: 30.0),
           OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: Color(0xff3a8628))),
-              primary: Colors.black,
-              backgroundColor: Colors.white,
-              fixedSize: const Size(320, 55),
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    side: BorderSide(color: Color(0xff3a8628))),
+                primary: Colors.black,
+                backgroundColor: Colors.white,
+                fixedSize: const Size(320, 55),
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                side: BorderSide(
+                  color: Color(0xff3a8628),
+                  width: 4.0,
+                ),
               ),
-              side: BorderSide(
-                color: Color(0xff3a8628),
-                width: 4.0,
-              ),
-            ),
-            child: Text('medication settings', style: TextStyle(fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-            onPressed: () async => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MedicationList()))
-            ),
+              child: Text('medication settings',
+                  style: TextStyle(
+                      fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
+              onPressed: () async => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MedicationList()))),
         ]),
       ),
       /*floatingActionButton: FloatingActionButton(

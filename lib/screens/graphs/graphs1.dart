@@ -109,7 +109,7 @@ class _Graphs1State extends State<Graphs1> {
                   alignment: Alignment.centerLeft,
                   child: Text("days without an attack:",
                       style: TextStyle(
-                          color: Color(0xFF000000),
+                          color: Color(0xFFFFFFFF),
                           fontSize: 20,
                           letterSpacing: 2.0,
                           fontFamily: 'WingDing',
@@ -126,6 +126,7 @@ class _Graphs1State extends State<Graphs1> {
                         height: 60.0,
                         width: 60.0,
                         decoration: BoxDecoration(
+                          color: Color(0xFFD3FBCD),
                           border: Border.all(
                             color: Color(0xFFD3FBCD),
                             width: 3.0,
@@ -137,7 +138,7 @@ class _Graphs1State extends State<Graphs1> {
                           child: Text(
                             daysFrom.toString(),
                             style: TextStyle(
-                                color: Color(0xFFFFFFFF),
+                                color: Color(0xFF000000),
                                 fontSize: 22,
                                 fontFamily: 'WingDing',
                                 fontWeight: FontWeight.w800),
@@ -151,11 +152,11 @@ class _Graphs1State extends State<Graphs1> {
                       child: Text(
                     (() {
                       if (daysFrom < 100 && daysFrom >= 10) {
-                        return "Well Done";
-                      } else if (daysFrom >= 3 && daysFrom < 10) {
                         return "Great Progress";
+                      } else if (daysFrom >= 3 && daysFrom < 10) {
+                        return "Good Start";
                       } else if (daysFrom >= 100 && daysFrom < 365) {
-                        return "YOUR AMAZING!";
+                        return "YOU'RE DOING AMAZING!";
                       } else if (daysFrom >= 365) {
                         return "WHAT! A WHOLE YEAR! INCREDIBLE!";
                       } else {
@@ -176,7 +177,7 @@ class _Graphs1State extends State<Graphs1> {
                   alignment: Alignment.centerLeft,
                   child: Text("average anxiety ratings:",
                       style: TextStyle(
-                          color: Color(0xFF000000),
+                          color: Color(0xFFFFFFFF),
                           fontSize: 20,
                           letterSpacing: 2.0,
                           fontFamily: 'WingDing',
@@ -197,6 +198,7 @@ class _Graphs1State extends State<Graphs1> {
                               height: 50.0,
                               width: 50.0,
                               decoration: BoxDecoration(
+                                color: Color(0xFFD3FBCD),
                                 border: Border.all(
                                   color: Color(0xFFD3FBCD),
                                   width: 3.0,
@@ -208,7 +210,7 @@ class _Graphs1State extends State<Graphs1> {
                                 child: Text(
                                   ratings[0].toStringAsPrecision(2),
                                   style: TextStyle(
-                                      color: Color(0xFFFFFFFF),
+                                      color: Color(0xFF000000),
                                       fontSize: 22,
                                       fontFamily: 'WingDing',
                                       fontWeight: FontWeight.w800),
@@ -241,6 +243,7 @@ class _Graphs1State extends State<Graphs1> {
                               height: 50.0,
                               width: 50.0,
                               decoration: BoxDecoration(
+                                color: Color(0xFFD3FBCD),
                                 border: Border.all(
                                   color: Color(0xFFD3FBCD),
                                   width: 3.0,
@@ -252,7 +255,7 @@ class _Graphs1State extends State<Graphs1> {
                                 child: Text(
                                   ratings[2].toStringAsPrecision(2),
                                   style: TextStyle(
-                                      color: Color(0xFFFFFFFF),
+                                      color: Color(0xFF000000),
                                       fontSize: 22,
                                       fontFamily: 'WingDing',
                                       fontWeight: FontWeight.w800),
@@ -285,6 +288,7 @@ class _Graphs1State extends State<Graphs1> {
                               height: 50.0,
                               width: 50.0,
                               decoration: BoxDecoration(
+                                color: Color(0xFFD3FBCD),
                                 border: Border.all(
                                   color: Color(0xFFD3FBCD),
                                   width: 3.0,
@@ -296,7 +300,7 @@ class _Graphs1State extends State<Graphs1> {
                                 child: Text(
                                   ratings[4].toStringAsPrecision(2),
                                   style: TextStyle(
-                                      color: Color(0xFFFFFFFF),
+                                      color: Color(0xFF000000),
                                       fontSize: 22,
                                       fontFamily: 'WingDing',
                                       fontWeight: FontWeight.w800),
@@ -319,20 +323,6 @@ class _Graphs1State extends State<Graphs1> {
                   ],
                 ),
                 SizedBox(height: 20.0),
-                /*Align(
-                alignment: Alignment.center,
-                child: Container(
-                  child: Text(
-                    Dformatter.format(now) + "\t " + Tformatter.format(now),
-                    style: TextStyle(
-                        color: Color(0xFF2A2B2A),
-                        fontSize: 20,
-                        fontFamily: 'WingDing',
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),*/
-                //AList(),
                 BarGraph(
                   data: setData(),
                 ),

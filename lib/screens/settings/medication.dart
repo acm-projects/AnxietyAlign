@@ -6,7 +6,7 @@ import 'package:anxiety_align/widgets/bottombar.dart';
 class Medication extends StatefulWidget {
   final bool noMedications;
   final String name;
-  final int? dosage;
+  final double? dosage;
   final List<String> days;
   final int? frequency;
   final Function? previousMedication;

@@ -46,207 +46,97 @@ class _HomeState extends State<Home> {
         body: SingleChildScrollView(
             reverse: true,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
-              child: Column(children: <Widget>[
-                Icon(Icons.face_rounded, size: 100, color: Colors.white),
-                Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                padding: EdgeInsets.symmetric(vertical: 80, horizontal: 60),
+                child: Column(
                     children: <Widget>[
-                      Wrap(children: [
-                        Container(
-                            width: 250,
-                            child: !_isEnable
-                                ? Text((username ?? 'John'),
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                        fontSize: 28.0,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 5.0,
-                                        color: Colors.black,
-                                        fontFamily: 'WingDing'))
-                                : TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Name',
-                                        hintStyle: TextStyle(
-                                            overflow: TextOverflow.visible,
-                                            fontSize: 28,
-                                            fontFamily: 'WingDing')),
-                                    initialValue: username ?? 'John Doe',
-                                    textInputAction: TextInputAction.done,
-                                    onFieldSubmitted: (value) {
-                                      setState(() => {
-                                            _isEnable = false,
-                                            username = value,
-                                            setUser(value)
-                                          });
-                                    })), //flexible
-                        Container(
-                            child: IconButton(
-                          icon: Icon(Icons.mode_edit,
-                              size: 40, color: Color(0xffd3fbcd)),
-                          onPressed: () {
-                            setState(() {
-                              _isEnable = true;
-                            });
-                          },
-                        )) //flexible
-                      ])
-                    ]), //container
-                SizedBox(height: 20.0),
-                Divider(
-                    color: Color(0xffd3fbcd),
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20),
-                SizedBox(height: 30.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: BorderSide(color: Color(0xff3a8628))),
-                    primary: Colors.black,
-                    backgroundColor: Colors.white,
-                    fixedSize: const Size(280, 55),
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    side: BorderSide(
-                      color: Color(0xff3a8628),
-                      width: 4.0,
-                    ),
-                  ),
-                  child: Text(
-                    'Statistics',
-                    style: TextStyle(
-                        fontFamily: 'WingDing', fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Graphs1()));
-                  },
-                ),
-                SizedBox(height: 30.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: BorderSide(color: Color(0xff3a8628))),
-                    primary: Colors.black,
-                    backgroundColor: Colors.white,
-                    fixedSize: const Size(280, 55),
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    side: BorderSide(
-                      color: Color(0xff3a8628),
-                      width: 4.0,
-                    ),
-                  ),
-                  child: Text('Journal',
-                      style: TextStyle(
-                          fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Journal()));
-                  },
-                ),
-                SizedBox(height: 30.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: BorderSide(color: Color(0xff3a8628))),
-                    primary: Colors.black,
-                    backgroundColor: Colors.white,
-                    fixedSize: const Size(280, 55),
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    side: BorderSide(
-                      color: Color(0xff3a8628),
-                      width: 4.0,
-                    ),
-                  ),
-                  child: Text('Attack Log',
-                      style: TextStyle(
-                          fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Attack()));
-                  },
-                ),
-                SizedBox(height: 30.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: BorderSide(color: Color(0xff3a8628))),
-                    primary: Colors.black,
-                    backgroundColor: Colors.white,
-                    fixedSize: const Size(280, 55),
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    side: BorderSide(
-                      color: Color(0xff3a8628),
-                      width: 4.0,
-                    ),
-                  ),
-                  child: Text('Settings',
-                      style: TextStyle(
-                          fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Settings()));
-                  },
-                ),
-                SizedBox(height: 30.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        side: BorderSide(color: Color(0xff3a8628))),
-                    primary: Colors.black,
-                    backgroundColor: Colors.white,
-                    fixedSize: const Size(280, 55),
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    side: BorderSide(
-                      color: Colors.red,
-                      width: 4.0,
-                    ),
-                  ),
-                  child: Text('Log Out',
-                      style: TextStyle(
-                          fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
-                  onPressed: () async {
-                    await _auth.signOut();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignIn(showSignin: true)));
-                  },
-                )
-              ]),
-              /*floatingActionButton: FloatingActionButton(
-      onPressed: (){},
-      backgroundColor: Color(0xff96b4a0),
-      child: Text('yes'), ``
-    ),*/
-            )));
+                      Icon(Icons.face_rounded, size: 100, color: Colors.white),
+                      nameDisplay(),
+                      buttonSpace(20.0),
+                      button("Log Attack", Attack(), Colors.red),
+                      buttonSpace(30.0),
+                      button("Journal", Journal(), Color(0xff3a8628)),
+                      buttonSpace(30.0),
+                      button("Statistics", Graphs1(), Color(0xff3a8628)),
+                      buttonSpace(30.0),
+                      button("Settings", Settings(), Color(0xff3a8628)),
+                      buttonSpace(30.0),
+                      signOut(),
+                    ]))));
   }
+
+  Widget button(String text, Widget navigate, Color color) => OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: BorderSide(color: color)),
+          primary: Colors.black,
+          backgroundColor: Colors.white,
+          fixedSize: const Size(280, 55),
+          textStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
+          ),
+          side: BorderSide(
+            color: color,
+            width: 4.0,
+          ),
+        ),
+        child: Text(text,
+            style:
+                TextStyle(fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => navigate));
+        },
+      );
+
+  Widget buttonSpace(double height) => SizedBox(height: height);
+
+  Widget nameDisplay() => Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Wrap(children: [
+              Container(
+                  width: 250,
+                  child: Text((username ?? 'John'),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.visible,
+                      style: TextStyle(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 5.0,
+                          color: Colors.black,
+                          fontFamily: 'WingDing'))), //flexible//flexible
+            ])
+          ]);
+
+  Widget signOut() => OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            side: BorderSide(color: Color(0xff3a8628))),
+        primary: Colors.black,
+        backgroundColor: Colors.white,
+        fixedSize: const Size(280, 55),
+        textStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 28.0,
+          fontWeight: FontWeight.bold,
+        ),
+        side: BorderSide(
+          color: Color(0xff3a8628),
+          width: 4.0,
+        ),
+      ),
+      child: Text('Log Out',
+          style:
+              TextStyle(fontFamily: 'WingDing', fontWeight: FontWeight.bold)),
+      onPressed: () async {
+        await _auth.signOut();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => SignIn(showSignin: true)));
+      });
 }
