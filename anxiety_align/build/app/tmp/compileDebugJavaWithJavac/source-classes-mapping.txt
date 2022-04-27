@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/anxiety_align/BuildConfig.java
+ com.example.anxiety_align.BuildConfig

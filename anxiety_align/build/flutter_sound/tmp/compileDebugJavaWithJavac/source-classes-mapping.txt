@@ -1,0 +1,16 @@
+com/dooboolab/fluttersound/FlutterSoundRecorder.java
+ com.dooboolab.fluttersound.FlutterSoundRecorder
+com/dooboolab/fluttersound/BuildConfig.java
+ com.dooboolab.fluttersound.BuildConfig
+com/dooboolab/fluttersound/FlutterSoundRecorderManager.java
+ com.dooboolab.fluttersound.FlutterSoundRecorderManager
+com/dooboolab/fluttersound/FlutterSoundSession.java
+ com.dooboolab.fluttersound.FlutterSoundSession
+com/dooboolab/fluttersound/FlutterSound.java
+ com.dooboolab.fluttersound.FlutterSound
+com/dooboolab/fluttersound/FlutterSoundManager.java
+ com.dooboolab.fluttersound.FlutterSoundManager
+com/dooboolab/fluttersound/FlutterSoundPlayerManager.java
+ com.dooboolab.fluttersound.FlutterSoundPlayerManager
+com/dooboolab/fluttersound/FlutterSoundPlayer.java
+ com.dooboolab.fluttersound.FlutterSoundPlayer
