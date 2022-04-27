@@ -45,21 +45,29 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: BottomBar(),
         body: SingleChildScrollView(
             reverse: true,
-            child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 80, horizontal: 60),
+            child: Center(
                 child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.face_rounded, size: 100, color: Colors.white),
+                      buttonSpace(80.0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                        child: Icon(
+                          Icons.face_rounded,
+                          size: 100,
+                          color: Colors.white
+                        )
+                      ),
                       nameDisplay(),
-                      buttonSpace(20.0),
+                      buttonSpace(40.0),
                       button("Log Attack", Attack(), Colors.red),
-                      buttonSpace(30.0),
+                      buttonSpace(40.0),
                       button("Journal", Journal(), Color(0xff3a8628)),
-                      buttonSpace(30.0),
+                      buttonSpace(40.0),
                       button("Statistics", Graphs1(), Color(0xff3a8628)),
-                      buttonSpace(30.0),
+                      buttonSpace(40.0),
                       button("Settings", Settings(), Color(0xff3a8628)),
-                      buttonSpace(30.0),
+                      buttonSpace(40.0),
                       signOut(),
                     ]))));
   }

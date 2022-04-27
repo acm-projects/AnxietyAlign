@@ -175,7 +175,12 @@ class _JournalEntryState extends State<JournalEntry> {
   );
 
   Widget saveButton() => ElevatedButton(
-    onPressed: () {
+    onPressed: () async {
+      if(recorder.isRecording) recorder.stopRecorder();
+      await decibelSubscription?.cancel();
+      decibelSubscription = null;
+      await audioSubscription?.cancel();
+      audioSubscription = null;
       DatabaseService(userID: widget.userID).setJournalText(
         widget.timestamp.toString(),
         textController.text
@@ -187,8 +192,9 @@ class _JournalEntryState extends State<JournalEntry> {
       StorageService(widget.userID).setJournalAudio(
         widget.timestamp.toString(),
         audio
-      );
-      if (widget.onSave != null) widget.onSave!();
+      ).whenComplete(() {
+        if(widget.onSave != null) widget.onSave!();
+      });
       textController.text = '';
       decibels = <double>[];
       audio = <int>[];

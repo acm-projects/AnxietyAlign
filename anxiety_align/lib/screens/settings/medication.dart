@@ -101,6 +101,8 @@ class _MedicationState extends State<Medication> {
     );
   }
 
+  Widget fieldSpace() => const SizedBox(height: 20.0);
+
   Widget medicationBody() => Column(
     children: <Widget>[
       Padding(
@@ -110,12 +112,12 @@ class _MedicationState extends State<Medication> {
           children: <Widget>[
             name(),
             widget.widgetSpace,
-            widget.widgetSpace,
+            fieldSpace(),
             dosage(),
-            widget.widgetSpace,
+            fieldSpace(),
             frequencyPerWeek(),
             widget.widgetSpace,
-            widget.widgetSpace,
+            fieldSpace(),
             frequencyPerDay()
           ]
         )
@@ -231,7 +233,7 @@ class _MedicationState extends State<Medication> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: widget.previousMedication == null
-            ? const SizedBox(width: 100.0, height: 40.0) : button(
+            ? Container() : button(
               () => widget.previousMedication!(),
               Icons.arrow_back_sharp
             )
@@ -239,7 +241,7 @@ class _MedicationState extends State<Medication> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: widget.nextMedication == null
-            ? const SizedBox(width: 100.0, height: 40.0) : button(
+            ? Container() : button(
               () => widget.nextMedication!(),
               Icons.arrow_forward_sharp
             )

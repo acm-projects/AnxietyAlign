@@ -25,7 +25,7 @@ class _Graphs2State extends State<Graphs2> {
   final List<GraphData> data1 = [
     GraphData(count: 0, section: "conflict w/\n loved one", color: Color(
         0xFF134611)),
-    GraphData(count: 0, section: "social\nevent", color: Color(0xFF626262)),
+    GraphData(count: 0, section: "social\nevent", color: Color(0xFF5BBB6B)),
     GraphData(count: 0, section: "academic\nstress", color: Color(0xFF468752)),
     GraphData(count: 0, section: "financial\ndistress", color: Color(0xFFD3FBCD)),
     GraphData(count: 0, section: "other", color: Color(0xFFFFFFFF)),
@@ -33,7 +33,7 @@ class _Graphs2State extends State<Graphs2> {
   final List<GraphData> data2 = [
     GraphData(count: 0, section: "breathing\nexercise", color: Color(0xFF134611)),
     GraphData(count: 0, section: "focus\nobject", color: Color(0xFFD3FBCD)),
-    GraphData(count: 0, section: "light\nexercise", color: Color(0xFF626262)),
+    GraphData(count: 0, section: "light\nexercise", color: Color(0xFF5BBB6B)),
     GraphData(count: 0, section: "leaving\nenvironment", color: Color(0xFF468752)),
     GraphData(count: 0, section: "other", color: Color(0xFFFFFFFF)),
   ];

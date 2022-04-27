@@ -50,8 +50,8 @@ class DatabaseService {
       }
     timestamps.sort((a, b) => a.compareTo(b));
     int difference = daysBetween(
-        DateTime.parse(timestamps[timestamps.length - 2]),
-        DateTime.parse(timestamps[timestamps.length - 1]));
+        DateTime.parse(timestamps[timestamps.length - 1]),
+        DateTime.now());
     return difference;
   }
 
@@ -111,30 +111,31 @@ class DatabaseService {
         .orderBy('timestamp', descending: true)
         .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      timestamps.add(DateTime.parse(doc.id));
+      timestamps.add((doc.get('timestamp')).toDate());
     }
     timestamps.sort((a, b) => a.compareTo(b));
+    for(int i= 0; i < timestamps.length; i++) {print(timestamps[i].month);}
     for (int i = 0; i < timestamps.length; i++) {
       if (cMonth == timestamps[i].month) {
         for (QueryDocumentSnapshot doc in snapshot.docs) {
-          if (timestamps[i].toString() == doc.id) {
+          if (timestamps[i] == (doc.get('timestamp')).toDate()) {
             ratings[1]++;
             ratings[0] += doc.get('rating');
           }
         }
       }
-      if ((DateTime.now().month - 6 <= timestamps[i].month - 6) ||
+      if ((DateTime.now().month - 6 >= timestamps[i].month - 6) ||
           (timestamps[i].month <= cMonth)) {
         for (QueryDocumentSnapshot doc in snapshot.docs) {
-          if (timestamps[i].toString() == doc.id) {
+          if (timestamps[i] == (doc.get('timestamp')).toDate()) {
             ratings[3]++;
             ratings[2] += doc.get('rating');
           }
         }
       }
-      if ((DateTime.now().year - 1 <= timestamps[i].year - 1)) {
+      if ((DateTime.now().year - 1 >= timestamps[i].year - 1) && (DateTime.now().month - 6 <= timestamps[i].month - 6)) {
         for (QueryDocumentSnapshot doc in snapshot.docs) {
-          if (timestamps[i].toString() == doc.id) {
+          if (timestamps[i] == (doc.get('timestamp')).toDate()) {
             ratings[5]++;
             ratings[4] += doc.get('rating');
           }
@@ -169,7 +170,7 @@ class DatabaseService {
         .orderBy('timestamp', descending: true)
         .get();
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      timestamps.add(DateTime.parse(doc.id));
+      timestamps.add((doc.get('timestamp')).toDate());
     }
     timestamps.sort((a, b) => a.compareTo(b));
     for (int i = 0; i < timestamps.length; i++) {

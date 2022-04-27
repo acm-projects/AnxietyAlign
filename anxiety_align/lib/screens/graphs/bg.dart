@@ -17,9 +17,9 @@ class BarGraph extends StatelessWidget {
           children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("attacks by month:",
+              child: Text("attacks by month (all entries):",
                   style: TextStyle(
-                      color: Color(0xFF000000),
+                      color: Colors.white,
                       fontSize: 20,
                       letterSpacing: 2.0,
                       fontFamily: 'WingDing',
