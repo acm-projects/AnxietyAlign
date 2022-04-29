@@ -64,6 +64,10 @@ MILESTONES
      - Statistics Page
      - Storage of Journal enteries
    - Combining frontend and backend at each stage 
+
+PRESENTATION
+----------------
+   - [AnxietyAlign Presentation.pdf](https://github.com/acm-projects/AnxietyAlign/blob/main/AnxietyAlign%20Presentation.pdf)
         
 TECH STACK
 ----------------
