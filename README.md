@@ -68,6 +68,17 @@ MILESTONES
 PRESENTATION
 ----------------
    - [AnxietyAlign Presentation.pdf](https://github.com/acm-projects/AnxietyAlign/blob/main/AnxietyAlign%20Presentation.pdf)
+
+PAGES
+----------------
+  - Journal
+<img src="https://user-images.githubusercontent.com/98787282/166092988-c7a16a3e-8e40-418f-9058-926a901b48a2.gif" width="200" height="400">
+
+  - Questionare
+<img src="https://user-images.githubusercontent.com/98787282/166092990-6d46ad7d-728f-4bb1-9df3-fde1f1822b7c.gif" width="200" height="400">
+
+  - Statistics
+<img src="https://user-images.githubusercontent.com/98787282/166092944-0ed3d019-5e35-488c-a3ff-6a814156af1b.gif" width="200" height="400">
         
 TECH STACK
 ----------------
